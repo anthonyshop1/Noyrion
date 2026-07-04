@@ -1,0 +1,275 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>CryptoX | Transfer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Geist:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<style>
+  .glass-panel{background:rgba(26,26,26,0.4);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);}
+  .glass-panel-elevated{background:rgba(38,38,38,0.6);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border:1px solid rgba(255,255,255,0.12);}
+  .amber-glow{box-shadow:0 0 20px rgba(255,92,0,0.3);}
+  body{background-color:#000;color:#e5e2e1;overflow-x:hidden;}
+  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+  input, select, textarea { background-color: #0e0e0e !important; color: #e5e2e1 !important; -webkit-text-fill-color: #e5e2e1 !important; }
+  input::placeholder, textarea::placeholder { color: rgba(228,190,177,0.35) !important; }
+  .input-field{background:#0e0e0e;border:1px solid rgba(255,255,255,0.08);color:#e5e2e1;transition:border-color 0.2s;}
+  .input-field:focus{border-color:#ff5c00;outline:none;box-shadow:0 0 0 2px rgba(255,92,0,0.15);}
+  .custom-scrollbar::-webkit-scrollbar{width:4px;} .custom-scrollbar::-webkit-scrollbar-thumb{background:rgba(255,92,0,0.3);border-radius:10px;}
+
+  /* --- CryptoX 2.0 motion system --- */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes checkPop{0%{transform:scale(0);opacity:0;}60%{transform:scale(1.15);}100%{transform:scale(1);opacity:1;}}
+  @keyframes shake{10%,90%{transform:translateX(-1px);}20%,80%{transform:translateX(2px);}30%,50%,70%{transform:translateX(-4px);}40%,60%{transform:translateX(4px);}}
+  @keyframes slideFade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes ping{0%{transform:scale(1);opacity:.6;}100%{transform:scale(2.2);opacity:0;}}
+  .card-anim{opacity:0;animation:fadeUp .55s cubic-bezier(.16,1,.3,1) forwards;}
+  .card-anim.c1{animation-delay:.05s} .card-anim.c2{animation-delay:.12s} .card-anim.c3{animation-delay:.19s}
+  .check-pop{animation:checkPop .5s cubic-bezier(.34,1.56,.64,1) both;}
+  .shake-anim{animation:shake .5s cubic-bezier(.36,.07,.19,.97) both;}
+  .tab-panel{animation:slideFade .35s cubic-bezier(.16,1,.3,1) both;}
+  .recipient-found{animation:slideFade .3s ease both;}
+  .ping-ring{animation:ping 1.8s cubic-bezier(0,0,.2,1) infinite;}
+  .btn-primary{position:relative;overflow:hidden;}
+  .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,0.35);transform:scale(0);animation:rippleAnim .6s ease-out;pointer-events:none;}
+  @keyframes rippleAnim{to{transform:scale(3);opacity:0;}}
+  .tab-btn{transition:background .25s,color .25s;}
+  .quick-avatar{transition:transform .2s,border-color .2s;}
+  .quick-avatar:hover{transform:translateY(-3px);border-color:#ff5c00;}
+  @media (prefers-reduced-motion: reduce){
+    .card-anim,.check-pop,.shake-anim,.tab-panel,.recipient-found,.ping-ring{animation:none!important;opacity:1!important;transform:none!important;}
+  }
+</style>
+<script id="tailwind-config">
+  tailwind.config={darkMode:"class",theme:{extend:{colors:{"secondary-container":"#feb700","primary":"#ffb59a","surface-container-lowest":"#0e0e0e","on-surface-variant":"#e4beb1","background":"#131313","secondary":"#ffdb9d","primary-container":"#ff5c00","error":"#ffb4ab","error-container":"#93000a","surface-container":"#201f1f","outline":"#ab897d","surface-container-low":"#1c1b1b","surface-bright":"#3a3939","on-surface":"#e5e2e1","on-background":"#e5e2e1","on-primary-container":"#521800","surface-container-high":"#2a2a2a","outline-variant":"#5b4137","surface-variant":"#353534","on-primary":"#5a1b00","on-secondary":"#412d00"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"margin-mobile":"20px","stack-md":"16px","gutter":"24px","container-max":"1440px","unit":"4px","margin-desktop":"80px","stack-sm":"8px","stack-lg":"32px"},fontFamily:{"title-md":["Hanken Grotesk"],"headline-lg":["Hanken Grotesk"],"body-md":["Inter"],"label-mono":["Geist"],"data-display":["Geist"],"body-lg":["Inter"]},fontSize:{"title-md":["24px",{lineHeight:"32px",fontWeight:"500"}],"body-md":["16px",{lineHeight:"24px",fontWeight:"400"}],"label-mono":["14px",{lineHeight:"20px",letterSpacing:"0.05em",fontWeight:"500"}],"headline-lg":["40px",{lineHeight:"48px",letterSpacing:"-0.02em",fontWeight:"600"}],"data-display":["20px",{lineHeight:"24px",fontWeight:"600"}],"body-lg":["18px",{lineHeight:"28px",fontWeight:"400"}]}}}}
+</script>
+</head>
+<body class="bg-background font-body-md text-on-background antialiased">
+<div id="sidebar-placeholder"></div>
+<main class="md:ml-64 min-h-screen pt-8 pb-24 md:pb-12 px-6 md:px-margin-desktop">
+<div class="fixed top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[120px] -z-10"></div>
+<div class="max-w-4xl mx-auto">
+
+  <div class="card-anim c1 mb-8">
+    <h2 class="font-headline-lg text-headline-lg text-on-background mb-2">Transfer</h2>
+    <p class="font-body-lg text-on-surface-variant">Send crypto instantly to any CryptoX user by UID or email — zero platform fee, always.</p>
+  </div>
+
+  <!-- Tabs -->
+  <div class="card-anim c2 flex gap-2 mb-6 glass-panel p-1.5 rounded-xl w-fit">
+    <button id="tabSendBtn" onclick="switchTab('send')" class="tab-btn px-6 py-2 rounded-lg text-sm font-bold bg-primary-container text-on-primary-container">Send</button>
+    <button id="tabReceiveBtn" onclick="switchTab('receive')" class="tab-btn px-6 py-2 rounded-lg text-sm font-bold text-on-surface-variant hover:bg-white/5">Receive</button>
+    <button id="tabHistoryBtn" onclick="switchTab('history')" class="tab-btn px-6 py-2 rounded-lg text-sm font-bold text-on-surface-variant hover:bg-white/5">History</button>
+  </div>
+
+  <!-- SEND PANEL -->
+  <div id="sendPanel" class="tab-panel">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div class="lg:col-span-7 glass-panel rounded-xl p-stack-lg space-y-6">
+
+        <div class="space-y-2">
+          <label class="font-label-mono text-label-mono text-primary uppercase tracking-wider block">Select Asset</label>
+          <div class="relative">
+            <select id="tfAsset" class="w-full bg-surface-container-lowest border border-outline-variant/20 rounded-lg px-4 py-4 appearance-none text-on-background">
+              <option>Bitcoin (BTC)</option><option>Ethereum (ETH)</option><option>Solana (SOL)</option><option>Tether (USDT)</option>
+            </select>
+            <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label class="font-label-mono text-label-mono text-primary uppercase tracking-wider block">Recipient Identity</label>
+          <div class="relative">
+            <input id="tfRecipient" oninput="checkRecipient(this.value)" class="w-full bg-surface-container-lowest border border-outline-variant/20 rounded-lg px-4 py-4 text-on-background placeholder:text-on-surface-variant/40" placeholder="Email address or User ID (UID)" type="text">
+            <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant/40">alternate_email</span>
+          </div>
+          <div id="recipientPreview" class="hidden recipient-found flex items-center gap-3 px-3 py-2 bg-primary/5 border border-primary/10 rounded-lg">
+            <div class="w-9 h-9 rounded-full bg-primary-container/20 flex items-center justify-center font-bold text-primary text-sm" id="recipientAvatar">--</div>
+            <div><p class="text-sm font-bold" id="recipientName">—</p><p class="text-[11px] text-on-surface-variant/60">Verified CryptoX user</p></div>
+            <span class="material-symbols-outlined text-primary ml-auto text-lg">verified</span>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <div class="flex justify-between items-center">
+            <label class="font-label-mono text-label-mono text-primary uppercase tracking-wider">Amount to Send</label>
+            <span class="font-label-mono text-label-mono text-on-surface-variant/60">Available: 0.0000 BTC</span>
+          </div>
+          <div class="relative">
+            <input class="w-full bg-surface-container-lowest border border-outline-variant/20 rounded-lg pl-4 pr-24 py-4 text-on-background font-data-display text-data-display" id="tfAmount" oninput="calcFee()" placeholder="0.00" step="0.0001" type="number">
+            <div class="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
+              <button onclick="document.getElementById('tfAmount').value='0.0000';calcFee();" class="bg-primary/10 text-primary px-3 py-1 rounded text-xs font-bold hover:bg-primary/20 transition-all">MAX</button>
+              <span class="text-on-surface-variant font-bold" id="tfUnit">BTC</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-surface-container-low/50 rounded-lg p-4 space-y-3">
+          <div class="flex justify-between font-label-mono text-label-mono"><span class="text-on-surface-variant">Platform Fee</span><span class="text-primary flex items-center gap-1">0.00 <span class="text-[10px] bg-primary/15 px-1.5 py-0.5 rounded">ZERO-FEE</span></span></div>
+          <div class="flex justify-between font-label-mono text-label-mono border-t border-outline-variant/10 pt-2"><span class="text-on-surface-variant">Recipient Receives</span><span class="text-primary" id="tf-total">0.0000 BTC</span></div>
+        </div>
+
+        <button id="sendBtn" onclick="handleSend(event)" class="btn-primary w-full bg-primary-container text-on-primary font-bold py-5 rounded-lg flex items-center justify-center gap-2 amber-glow active:scale-95 transition-all duration-300 uppercase tracking-widest">
+          <span class="material-symbols-outlined">send</span>Send Balance
+        </button>
+
+        <div id="sendSuccess" class="hidden text-center py-4">
+          <div class="check-pop w-16 h-16 rounded-full bg-primary-container/20 flex items-center justify-center mx-auto mb-3">
+            <span class="material-symbols-outlined text-primary text-4xl">check_circle</span>
+          </div>
+          <p class="font-bold text-lg">Transfer Sent!</p>
+          <p class="text-sm text-on-surface-variant">Delivered instantly — off-chain, zero-fee.</p>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 space-y-6">
+        <div class="glass-panel rounded-xl p-stack-md">
+          <h3 class="font-label-mono text-label-mono text-primary uppercase tracking-widest mb-4">Security Protocol</h3>
+          <div class="flex gap-4 items-start p-4 bg-primary-container/5 border border-primary/10 rounded-lg">
+            <span class="material-symbols-outlined text-primary">verified_user</span>
+            <div><p class="font-body-md text-on-background font-bold mb-1">Internal Transfer Protocol</p><p class="text-sm text-on-surface-variant/80">Off-chain and instantaneous. No external wallet confirmation required.</p></div>
+          </div>
+        </div>
+        <div class="glass-panel rounded-xl p-stack-md">
+          <h3 class="font-label-mono text-label-mono text-primary uppercase tracking-widest mb-4">Frequent Recipients</h3>
+          <div class="flex gap-3 overflow-x-auto pb-2">
+            <button class="quick-avatar flex flex-col items-center gap-2 min-w-[72px] group">
+              <div class="w-12 h-12 rounded-full bg-surface-container-highest border border-outline-variant/20 flex items-center justify-center text-on-surface-variant/30"><span class="material-symbols-outlined">add</span></div>
+              <span class="text-[10px] font-label-mono text-on-surface-variant uppercase">Add New</span>
+            </button>
+          </div>
+          <p class="text-xs text-on-surface-variant/40 mt-3">No frequent recipients yet — they'll appear here after your first few transfers.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECEIVE PANEL -->
+  <div id="receivePanel" class="tab-panel hidden">
+    <div class="max-w-md mx-auto glass-panel rounded-2xl p-stack-lg text-center space-y-5">
+      <h3 class="font-title-md text-title-md">Your Receive Details</h3>
+      <p class="text-sm text-on-surface-variant/70">Share your UID or email so others can send you crypto instantly, zero-fee.</p>
+      <div class="relative w-40 h-40 mx-auto flex items-center justify-center">
+        <span class="absolute inset-0 rounded-2xl border-2 border-primary/30 ping-ring"></span>
+        <div class="w-36 h-36 rounded-2xl bg-white flex items-center justify-center">
+          <span class="material-symbols-outlined text-black" style="font-size:96px;">qr_code_2</span>
+        </div>
+      </div>
+      <div class="glass-panel-elevated rounded-xl p-4 flex items-center justify-between">
+        <div class="text-left">
+          <p class="text-[10px] font-label-mono text-on-surface-variant/50 uppercase">Your UID</p>
+          <p class="font-data-display text-primary" id="myUid">CX-902481</p>
+        </div>
+        <button onclick="copyUid()" class="glass-panel px-3 py-2 rounded-lg text-xs font-label-mono hover:bg-white/10 transition-colors flex items-center gap-1">
+          <span class="material-symbols-outlined text-sm">content_copy</span> Copy
+        </button>
+      </div>
+      <p id="copyToast" class="hidden text-xs text-primary font-label-mono">✓ Copied to clipboard</p>
+    </div>
+  </div>
+
+  <!-- HISTORY PANEL (user-to-user transfers) -->
+  <div id="historyPanel" class="tab-panel hidden">
+    <div class="glass-panel rounded-xl overflow-hidden">
+      <div class="flex justify-between items-center p-stack-md border-b border-outline-variant/10">
+        <h3 class="font-title-md text-[16px]">Transfer History</h3>
+        <div class="flex gap-1">
+          <button class="px-3 py-1 rounded-lg text-xs font-label-mono bg-primary/20 text-primary">All</button>
+          <button class="px-3 py-1 rounded-lg text-xs font-label-mono text-on-surface-variant hover:bg-white/5">Sent</button>
+          <button class="px-3 py-1 rounded-lg text-xs font-label-mono text-on-surface-variant hover:bg-white/5">Received</button>
+        </div>
+      </div>
+      <div class="flex flex-col items-center justify-center py-16 text-center">
+        <span class="material-symbols-outlined text-on-surface-variant/30 text-5xl mb-3">sync_alt</span>
+        <p class="font-label-mono text-sm text-on-surface-variant/50">No transfers yet</p>
+        <p class="text-xs text-on-surface-variant/30 mt-1">Every transfer you send or receive from other CryptoX users appears here.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent transfers preview (visible on Send tab context) -->
+  <section id="recentPreview" class="card-anim c3 mt-12">
+    <div class="flex justify-between items-end mb-6">
+      <h3 class="font-title-md text-on-background">Recent Transfers</h3>
+      <button onclick="switchTab('history')" class="text-primary font-label-mono text-label-mono hover:underline flex items-center gap-1">View All Transfer History <span class="material-symbols-outlined text-xs">arrow_forward</span></button>
+    </div>
+    <div class="glass-panel rounded-xl p-10 text-center">
+      <span class="material-symbols-outlined text-on-surface-variant/30 text-4xl mb-2">receipt_long</span>
+      <p class="font-label-mono text-sm text-on-surface-variant/50">No recent activity</p>
+    </div>
+  </section>
+
+</div>
+</main>
+<script src="_sidebar.js"></script>
+<script>
+document.getElementById('sidebar-placeholder').innerHTML=SIDEBAR('transfer');
+
+function switchTab(tab){
+  ['send','receive','history'].forEach(t=>{
+    document.getElementById(t+'Panel').classList.toggle('hidden', t!==tab);
+    const btn = document.getElementById('tab'+t.charAt(0).toUpperCase()+t.slice(1)+'Btn');
+    if(t===tab){ btn.classList.add('bg-primary-container','text-on-primary-container'); btn.classList.remove('text-on-surface-variant'); }
+    else { btn.classList.remove('bg-primary-container','text-on-primary-container'); btn.classList.add('text-on-surface-variant'); }
+  });
+  document.getElementById('recentPreview').style.display = tab==='send' ? '' : 'none';
+}
+
+const unitMap = {'Bitcoin (BTC)':'BTC','Ethereum (ETH)':'ETH','Solana (SOL)':'SOL','Tether (USDT)':'USDT'};
+document.getElementById('tfAsset').addEventListener('change', function(){
+  document.getElementById('tfUnit').textContent = unitMap[this.value];
+  calcFee();
+});
+
+function calcFee(){
+  const amt = parseFloat(document.getElementById('tfAmount').value)||0;
+  const unit = document.getElementById('tfUnit').textContent;
+  document.getElementById('tf-total').textContent = amt.toFixed(4) + ' ' + unit;
+}
+
+let recipientTimer;
+function checkRecipient(val){
+  clearTimeout(recipientTimer);
+  const preview = document.getElementById('recipientPreview');
+  if(!val || val.trim().length < 3){ preview.classList.add('hidden'); return; }
+  recipientTimer = setTimeout(()=>{
+    // Placeholder resolution — will call real lookup API once backend is connected
+    const name = val.includes('@') ? val.split('@')[0] : 'User_' + val.slice(-4);
+    const initials = name.slice(0,2).toUpperCase();
+    document.getElementById('recipientAvatar').textContent = initials;
+    document.getElementById('recipientName').textContent = name;
+    preview.classList.remove('hidden');
+  }, 400);
+}
+
+function handleSend(e){
+  e.preventDefault();
+  const recipient = document.getElementById('tfRecipient').value;
+  const amount = parseFloat(document.getElementById('tfAmount').value);
+  const form = document.querySelector('#sendPanel .lg\\:col-span-7');
+  if(!recipient || !amount || amount<=0){
+    form.classList.remove('shake-anim'); void form.offsetWidth; form.classList.add('shake-anim');
+    if(!recipient) document.getElementById('tfRecipient').style.borderColor='#ffb4ab';
+    if(!amount||amount<=0) document.getElementById('tfAmount').style.borderColor='#ffb4ab';
+    return;
+  }
+  document.getElementById('sendBtn').classList.add('hidden');
+  document.getElementById('sendSuccess').classList.remove('hidden');
+}
+document.querySelectorAll('.btn-primary').forEach(btn=>{
+  btn.addEventListener('click', function(e){
+    const rect=this.getBoundingClientRect(); const ripple=document.createElement('span');
+    const size=Math.max(rect.width,rect.height);
+    ripple.className='ripple'; ripple.style.width=ripple.style.height=size+'px';
+    ripple.style.left=(e.clientX-rect.left-size/2)+'px'; ripple.style.top=(e.clientY-rect.top-size/2)+'px';
+    this.appendChild(ripple); setTimeout(()=>ripple.remove(),600);
+  });
+});
+function copyUid(){
+  const uid = document.getElementById('myUid').textContent;
+  navigator.clipboard?.writeText(uid);
+  const toast = document.getElementById('copyToast');
+  toast.classList.remove('hidden');
+  setTimeout(()=>toast.classList.add('hidden'),1800);
+}
+</script>
+</body></html>

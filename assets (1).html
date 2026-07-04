@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Assets | CryptoX</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Geist:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<style>
+  body{background-color:#000;color:#e5e2e1;overflow-x:hidden;}
+  .glass-panel{background:rgba(26,26,26,0.4);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);}
+  .glass-modal{background:rgba(38,38,38,0.6);backdrop-filter:blur(40px);border:1px solid rgba(255,255,255,0.12);}
+  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+  .chart-glow{filter:drop-shadow(0 0 6px rgba(255,92,0,0.4));}
+  ::-webkit-scrollbar{width:4px;}
+  ::-webkit-scrollbar-thumb{background:rgba(255,92,0,0.3);border-radius:10px;}
+
+    /* Fix white input background */
+    input, select, textarea {
+      background-color: #0e0e0e !important;
+      color: #e5e2e1 !important;
+      -webkit-text-fill-color: #e5e2e1 !important;
+    }
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus {
+      -webkit-box-shadow: 0 0 0px 1000px #0e0e0e inset !important;
+      -webkit-text-fill-color: #e5e2e1 !important;
+      caret-color: #e5e2e1 !important;
+    }
+    input::placeholder, textarea::placeholder { 
+      color: rgba(228,190,177,0.35) !important; 
+    }
+    select option {
+      background: #0e0e0e;
+      color: #e5e2e1;
+    }
+
+    </style>
+<script id="tailwind-config">
+  tailwind.config={darkMode:"class",theme:{extend:{colors:{"primary":"#ffb59a","primary-container":"#ff5c00","on-primary-container":"#521800","background":"#131313","surface-container":"#201f1f","surface-container-low":"#1c1b1b","surface-container-lowest":"#0e0e0e","surface-container-high":"#2a2a2a","on-surface":"#e5e2e1","on-surface-variant":"#e4beb1","outline-variant":"#5b4137","secondary":"#ffdb9d","secondary-container":"#feb700","error":"#ffb4ab","error-container":"#93000a","on-primary":"#5a1b00","surface-variant":"#353534"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"12px",full:"9999px"},spacing:{"margin-mobile":"20px","stack-md":"16px","gutter":"24px","margin-desktop":"80px","stack-sm":"8px","stack-lg":"32px"},fontFamily:{"label-mono":["Geist"],"headline-lg":["Hanken Grotesk"],"title-md":["Hanken Grotesk"],"body-md":["Inter"],"data-display":["Geist"]},fontSize:{"label-mono":["14px",{lineHeight:"20px",letterSpacing:"0.05em",fontWeight:"500"}],"headline-lg":["40px",{lineHeight:"48px",letterSpacing:"-0.02em",fontWeight:"600"}],"title-md":["24px",{lineHeight:"32px",fontWeight:"500"}],"data-display":["20px",{lineHeight:"24px",fontWeight:"600"}],"body-md":["16px",{lineHeight:"24px",fontWeight:"400"}]}}}}
+</script>
+</head>
+<body class="dark bg-background text-on-background">
+<div id="sidebar-placeholder"></div>
+
+<main class="md:ml-64 p-margin-mobile md:p-stack-lg min-h-screen relative overflow-x-hidden pb-20 md:pb-0">
+  <div class="fixed top-0 right-0 w-[600px] h-[600px] pointer-events-none z-0" style="background:radial-gradient(circle at center,rgba(255,92,0,0.08) 0%,transparent 70%);"></div>
+
+  <!-- Header -->
+  <header class="relative z-10 flex justify-between items-center mb-stack-lg">
+    <div>
+      <h2 class="font-title-md text-title-md text-on-surface">Your Assets</h2>
+      <p class="font-body-md text-body-md text-on-surface-variant/70">Manage and track your portfolio.</p>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="deposit.html" class="bg-primary-container text-on-primary-container px-5 py-2 rounded-full font-label-mono text-sm hover:opacity-90 transition flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm">add</span> Deposit
+      </a>
+    </div>
+  </header>
+
+  <!-- Portfolio Summary Cards -->
+  <div class="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-gutter mb-gutter">
+    <div class="glass-panel p-stack-md rounded-xl">
+      <p class="font-label-mono text-[10px] text-on-surface-variant/60 uppercase tracking-widest mb-2">Total Value</p>
+      <p class="font-headline-lg text-2xl text-on-surface" style="text-shadow:0 0 15px rgba(255,181,154,0.3);">$0.00</p>
+      <span class="inline-flex items-center gap-1 bg-primary/20 text-primary-container px-2 py-0.5 rounded text-xs font-label-mono mt-2">↑ 0.0%</span>
+    </div>
+    <div class="glass-panel p-stack-md rounded-xl">
+      <p class="font-label-mono text-[10px] text-on-surface-variant/60 uppercase tracking-widest mb-2">24h P&L</p>
+      <p class="font-headline-lg text-2xl text-primary">$0.00</p>
+      <p class="text-xs text-on-surface-variant/40 mt-2 font-label-mono">Today</p>
+    </div>
+    <div class="glass-panel p-stack-md rounded-xl">
+      <p class="font-label-mono text-[10px] text-on-surface-variant/60 uppercase tracking-widest mb-2">Assets Held</p>
+      <p class="font-headline-lg text-2xl text-on-surface">5</p>
+      <p class="text-xs text-on-surface-variant/40 mt-2 font-label-mono">Coins</p>
+    </div>
+    <div class="glass-panel p-stack-md rounded-xl">
+      <p class="font-label-mono text-[10px] text-on-surface-variant/60 uppercase tracking-widest mb-2">Best Performer</p>
+      <p class="font-headline-lg text-2xl text-secondary">SOL</p>
+      <p class="text-xs text-primary mt-2 font-label-mono">No assets</p>
+    </div>
+  </div>
+
+  
+  <!-- Empty State -->
+  <div class="relative z-10 flex flex-col items-center justify-center py-20 text-center">
+    <div style="width:80px;height:80px;border-radius:50%;background:rgba(255,92,0,0.08);border:1px solid rgba(255,92,0,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+      <span class="material-symbols-outlined" style="font-size:36px;color:rgba(255,92,0,0.4);">account_balance_wallet</span>
+    </div>
+    <h3 class="font-title-md text-lg text-on-surface mb-2">No Assets Yet</h3>
+    <p class="text-on-surface-variant text-sm mb-6 max-w-sm">You don't have any crypto assets yet. Make your first deposit to start building your portfolio.</p>
+    <a href="deposit.html" class="bg-primary-container text-on-primary-container px-8 py-3 rounded-full font-label-mono font-bold text-sm hover:opacity-90 transition flex items-center gap-2">
+      <span class="material-symbols-outlined text-sm">add</span> Make First Deposit
+    </a>
+  </div>
+
+</main>
+<script src="_sidebar.js"></script>
+<script>document.getElementById('sidebar-placeholder').innerHTML=SIDEBAR('assets');</script>
