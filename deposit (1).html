@@ -1,0 +1,174 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>CryptoX | Deposit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Geist:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<style>
+  .glass-panel{background:rgba(26,26,26,0.4);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);}
+  .glass-panel-elevated{background:rgba(38,38,38,0.6);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border:1px solid rgba(255,255,255,0.12);}
+  .amber-glow{box-shadow:0 0 20px rgba(255,92,0,0.3);}
+  body{background-color:#000;color:#e5e2e1;overflow-x:hidden;}
+  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+  input, select, textarea { background-color: #0e0e0e !important; color: #e5e2e1 !important; -webkit-text-fill-color: #e5e2e1 !important; }
+  .custom-scrollbar::-webkit-scrollbar{width:4px;} .custom-scrollbar::-webkit-scrollbar-thumb{background:rgba(255,92,0,0.3);border-radius:10px;}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes ping{0%{transform:scale(1);opacity:.6;}100%{transform:scale(2.2);opacity:0;}}
+  @keyframes slideFade{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+  .card-anim{opacity:0;animation:fadeUp .55s cubic-bezier(.16,1,.3,1) forwards;}
+  .card-anim.c1{animation-delay:.05s} .card-anim.c2{animation-delay:.12s} .card-anim.c3{animation-delay:.19s}
+  .ping-ring{animation:ping 1.8s cubic-bezier(0,0,.2,1) infinite;}
+  .fade-panel{animation:slideFade .35s cubic-bezier(.16,1,.3,1) both;}
+  .coin-opt{transition:transform .2s,border-color .2s,background .2s;}
+  .coin-opt:hover{transform:translateY(-2px);}
+  .coin-opt.active{border-color:#ff5c00!important;background:rgba(255,92,0,0.1)!important;}
+  .net-opt{transition:border-color .2s,background .2s;}
+  .net-opt.active{border-color:#ff5c00!important;background:rgba(255,92,0,0.08)!important;}
+  @media (prefers-reduced-motion: reduce){
+    .card-anim,.ping-ring,.fade-panel{animation:none!important;opacity:1!important;transform:none!important;}
+  }
+</style>
+<script id="tailwind-config">
+  tailwind.config={darkMode:"class",theme:{extend:{colors:{"secondary-container":"#feb700","primary":"#ffb59a","surface-container-lowest":"#0e0e0e","on-surface-variant":"#e4beb1","background":"#131313","secondary":"#ffdb9d","primary-container":"#ff5c00","error":"#ffb4ab","error-container":"#93000a","surface-container":"#201f1f","outline":"#ab897d","surface-container-low":"#1c1b1b","surface-bright":"#3a3939","on-surface":"#e5e2e1","on-background":"#e5e2e1","on-primary-container":"#521800","surface-container-high":"#2a2a2a","outline-variant":"#5b4137","surface-variant":"#353534","on-primary":"#5a1b00","on-secondary":"#412d00"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"margin-mobile":"20px","stack-md":"16px","gutter":"24px","margin-desktop":"80px","stack-sm":"8px","stack-lg":"32px"},fontFamily:{"title-md":["Hanken Grotesk"],"headline-lg":["Hanken Grotesk"],"body-md":["Inter"],"label-mono":["Geist"],"data-display":["Geist"],"body-lg":["Inter"]},fontSize:{"title-md":["24px",{lineHeight:"32px",fontWeight:"500"}],"body-md":["16px",{lineHeight:"24px",fontWeight:"400"}],"label-mono":["14px",{lineHeight:"20px",letterSpacing:"0.05em",fontWeight:"500"}],"headline-lg":["40px",{lineHeight:"48px",letterSpacing:"-0.02em",fontWeight:"600"}],"data-display":["20px",{lineHeight:"24px",fontWeight:"600"}],"body-lg":["18px",{lineHeight:"28px",fontWeight:"400"}]}}}}
+</script>
+</head>
+<body class="bg-background font-body-md text-on-background antialiased">
+<div id="sidebar-placeholder"></div>
+<main class="md:ml-64 min-h-screen pt-8 pb-24 md:pb-12 px-6 md:px-margin-desktop">
+<div class="fixed top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[120px] -z-10"></div>
+<div class="max-w-4xl mx-auto">
+
+  <div class="card-anim c1 mb-8">
+    <h2 class="font-headline-lg text-headline-lg text-on-background mb-2">Deposit</h2>
+    <p class="font-body-lg text-on-surface-variant">Fund your account by depositing crypto to your unique address.</p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    <!-- Left: selectors -->
+    <div class="card-anim c2 lg:col-span-5 space-y-6">
+      <div class="glass-panel rounded-xl p-stack-md space-y-3">
+        <h3 class="font-label-mono text-label-mono text-primary uppercase tracking-widest mb-1">Select Coin</h3>
+        <div class="grid grid-cols-2 gap-3" id="coinGrid">
+          <button class="coin-opt active flex items-center gap-2 p-3 rounded-lg border border-outline-variant/20 bg-surface-container-lowest" data-coin="BTC" onclick="selectCoin(this,'BTC')">
+            <span class="w-7 h-7 rounded-full bg-primary-container/20 flex items-center justify-center text-xs font-bold text-primary">₿</span> Bitcoin
+          </button>
+          <button class="coin-opt flex items-center gap-2 p-3 rounded-lg border border-outline-variant/20 bg-surface-container-lowest" data-coin="ETH" onclick="selectCoin(this,'ETH')">
+            <span class="w-7 h-7 rounded-full bg-secondary/20 flex items-center justify-center text-xs font-bold text-secondary">Ξ</span> Ethereum
+          </button>
+          <button class="coin-opt flex items-center gap-2 p-3 rounded-lg border border-outline-variant/20 bg-surface-container-lowest" data-coin="USDT" onclick="selectCoin(this,'USDT')">
+            <span class="w-7 h-7 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary">₮</span> Tether
+          </button>
+          <button class="coin-opt flex items-center gap-2 p-3 rounded-lg border border-outline-variant/20 bg-surface-container-lowest" data-coin="SOL" onclick="selectCoin(this,'SOL')">
+            <span class="w-7 h-7 rounded-full bg-secondary-container/20 flex items-center justify-center text-xs font-bold text-secondary-container">◎</span> Solana
+          </button>
+        </div>
+      </div>
+
+      <div class="glass-panel rounded-xl p-stack-md space-y-3">
+        <h3 class="font-label-mono text-label-mono text-primary uppercase tracking-widest mb-1">Select Network</h3>
+        <div class="space-y-2" id="networkList">
+          <button class="net-opt active w-full flex items-center justify-between p-3 rounded-lg border border-outline-variant/20 bg-surface-container-lowest text-left" onclick="selectNetwork(this)">
+            <div><p class="font-bold text-sm">Bitcoin Network</p><p class="text-[11px] text-on-surface-variant/50">Native BTC chain</p></div>
+            <span class="material-symbols-outlined text-primary">check_circle</span>
+          </button>
+        </div>
+        <div class="flex gap-2 items-start p-3 bg-error-container/10 border border-error/20 rounded-lg mt-2">
+          <span class="material-symbols-outlined text-error text-sm">warning</span>
+          <p class="text-[11px] text-on-surface-variant/70">Only send the selected coin over the selected network. Sending unsupported assets may result in permanent loss.</p>
+        </div>
+      </div>
+
+      <div class="glass-panel rounded-xl p-stack-md">
+        <h3 class="font-label-mono text-label-mono text-primary uppercase tracking-widest mb-3">Deposit Rules</h3>
+        <div class="space-y-2 text-sm text-on-surface-variant/70">
+          <div class="flex justify-between"><span>Minimum Deposit</span><span class="text-on-surface" id="minDep">0.0005 BTC</span></div>
+          <div class="flex justify-between"><span>Confirmations Required</span><span class="text-on-surface">2</span></div>
+          <div class="flex justify-between"><span>Est. Arrival</span><span class="text-on-surface">~15 minutes</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: address / QR -->
+    <div class="card-anim c3 lg:col-span-7">
+      <div class="glass-panel rounded-2xl p-stack-lg text-center space-y-5" id="qrPanel">
+        <h3 class="font-title-md text-title-md">Your <span id="coinLabel" class="text-primary">BTC</span> Deposit Address</h3>
+        <div class="relative w-44 h-44 mx-auto flex items-center justify-center">
+          <span class="absolute inset-0 rounded-2xl border-2 border-primary/30 ping-ring"></span>
+          <div class="w-40 h-40 rounded-2xl bg-white flex items-center justify-center">
+            <span class="material-symbols-outlined text-black" style="font-size:110px;">qr_code_2</span>
+          </div>
+        </div>
+        <div class="glass-panel-elevated rounded-xl p-4 flex items-center justify-between gap-3">
+          <p class="font-data-display text-sm text-primary truncate text-left" id="depositAddress">bc1q9x8h7g6f5d4s3a2w1e0r9t8y7u6i5o4p3</p>
+          <button onclick="copyAddress()" class="glass-panel px-3 py-2 rounded-lg text-xs font-label-mono hover:bg-white/10 transition-colors flex items-center gap-1 flex-shrink-0">
+            <span class="material-symbols-outlined text-sm">content_copy</span> Copy
+          </button>
+        </div>
+        <p id="copyToast" class="hidden text-xs text-primary font-label-mono">✓ Address copied to clipboard</p>
+
+        <div class="flex gap-3 justify-center pt-2">
+          <button class="glass-panel px-4 py-2 rounded-lg text-xs font-label-mono hover:bg-white/10 transition-colors flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">download</span> Save QR
+          </button>
+          <button class="glass-panel px-4 py-2 rounded-lg text-xs font-label-mono hover:bg-white/10 transition-colors flex items-center gap-1">
+            <span class="material-symbols-outlined text-sm">share</span> Share
+          </button>
+        </div>
+      </div>
+
+      <!-- Recent deposits -->
+      <section class="mt-8">
+        <div class="flex justify-between items-end mb-4">
+          <h3 class="font-title-md text-on-background">Recent Deposits</h3>
+          <a href="transactions.html" class="text-primary font-label-mono text-label-mono hover:underline flex items-center gap-1">View All <span class="material-symbols-outlined text-xs">arrow_forward</span></a>
+        </div>
+        <div class="glass-panel rounded-xl p-10 text-center">
+          <span class="material-symbols-outlined text-on-surface-variant/30 text-4xl mb-2">add_circle</span>
+          <p class="font-label-mono text-sm text-on-surface-variant/50">No deposits yet</p>
+          <p class="text-xs text-on-surface-variant/30 mt-1">Your deposit history will appear here once received</p>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+</main>
+<script src="_sidebar.js"></script>
+<script>
+document.getElementById('sidebar-placeholder').innerHTML=SIDEBAR('deposit');
+
+const coinNetworks = {
+  BTC: {label:'BTC', min:'0.0005 BTC', addr:'bc1q9x8h7g6f5d4s3a2w1e0r9t8y7u6i5o4p3', networks:[{name:'Bitcoin Network', sub:'Native BTC chain'}]},
+  ETH: {label:'ETH', min:'0.01 ETH', addr:'0x8f3Cb2A1d9E4b7C6a5F0d2E1b8A9c3D7e6F4B2a1', networks:[{name:'ERC-20 (Ethereum)', sub:'Standard Ethereum network'}]},
+  USDT: {label:'USDT', min:'10 USDT', addr:'TQn9Y2khD4Z6C5m8L1XoAeJd7W3fR9Bq2K', networks:[{name:'TRC-20 (Tron)', sub:'Lower fees, faster'},{name:'ERC-20 (Ethereum)', sub:'Higher fees, widely supported'}]},
+  SOL: {label:'SOL', min:'0.05 SOL', addr:'7dHbZ3xQmN9pL4sK2vR8jY6cW1tF5aB0eG3D', networks:[{name:'Solana Network', sub:'Native SOL chain'}]},
+};
+
+function selectCoin(btn, coin){
+  document.querySelectorAll('.coin-opt').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const data = coinNetworks[coin];
+  document.getElementById('coinLabel').textContent = data.label;
+  document.getElementById('minDep').textContent = data.min;
+  document.getElementById('depositAddress').textContent = data.addr;
+  const netList = document.getElementById('networkList');
+  netList.innerHTML = data.networks.map((n,i)=>`
+    <button class="net-opt ${i===0?'active':''} w-full flex items-center justify-between p-3 rounded-lg border border-outline-variant/20 bg-surface-container-lowest text-left" onclick="selectNetwork(this)">
+      <div><p class="font-bold text-sm">${n.name}</p><p class="text-[11px] text-on-surface-variant/50">${n.sub}</p></div>
+      <span class="material-symbols-outlined text-primary ${i===0?'':'opacity-0'}">check_circle</span>
+    </button>`).join('');
+}
+function selectNetwork(btn){
+  document.querySelectorAll('.net-opt').forEach(b=>{ b.classList.remove('active'); b.querySelector('.material-symbols-outlined').classList.add('opacity-0'); });
+  btn.classList.add('active');
+  btn.querySelector('.material-symbols-outlined').classList.remove('opacity-0');
+}
+function copyAddress(){
+  const addr = document.getElementById('depositAddress').textContent;
+  navigator.clipboard?.writeText(addr);
+  const toast = document.getElementById('copyToast');
+  toast.classList.remove('hidden');
+  setTimeout(()=>toast.classList.add('hidden'),1800);
+}
+</script>
+</body></html>
