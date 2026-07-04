@@ -14,7 +14,7 @@ const SIDEBAR = (active) => `
       ['home.html','dashboard','dashboard','Dashboard'],
       ['trade.html','trade','candlestick_chart','Trade'],
       ['assets.html','assets','account_balance_wallet','Assets'],
-      ['transfer.html','transfer','sync_alt','Transfer'],
+      ['transfer.html','transfer','sync_alt','P2P Transfer'],
       ['deposit.html','deposit','add_circle','Deposit'],
       ['withdrawal.html','withdrawal','remove_circle','Withdrawal'],
       ['transactions.html','transactions','receipt_long','Transaction History'],

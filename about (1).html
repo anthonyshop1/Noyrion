@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>About | CryptoX</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<style>
+  .glass-panel{background:rgba(26,26,26,0.4);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);}
+  .glass-modal{background:rgba(38,38,38,0.6);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border:1px solid rgba(255,255,255,0.15);}
+  .glow-amber{box-shadow:0 0 30px -5px rgba(255,92,0,0.4);}
+  .text-glow{text-shadow:0 0 15px rgba(255,181,154,0.3);}
+  body{background-color:#000000;color:#e5e2e1;overflow-x:hidden;}
+  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes logoSpin{from{transform:rotate(-8deg) scale(0.9);opacity:0;}to{transform:rotate(0) scale(1);opacity:1;}}
+  @keyframes countUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+  .hero-anim{opacity:0;animation:fadeUp 0.9s cubic-bezier(.16,1,.3,1) forwards;}
+  .hero-anim.d1{animation-delay:.05s} .hero-anim.d2{animation-delay:.18s} .hero-anim.d3{animation-delay:.32s}
+  .logo-anim{animation:logoSpin .7s cubic-bezier(.16,1,.3,1) both;}
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+  .reveal.in-view{opacity:1;transform:translateY(0);}
+  .reveal-stagger > *{opacity:0;transform:translateY(20px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);}
+  .reveal-stagger.in-view > *{opacity:1;transform:translateY(0);}
+  .reveal-stagger.in-view > *:nth-child(1){transition-delay:.05s} .reveal-stagger.in-view > *:nth-child(2){transition-delay:.13s}
+  .reveal-stagger.in-view > *:nth-child(3){transition-delay:.21s} .reveal-stagger.in-view > *:nth-child(4){transition-delay:.29s}
+  .parallax-orb{transition:transform .6s cubic-bezier(.16,1,.3,1);}
+  .value-card{transition:transform .3s cubic-bezier(.16,1,.3,1),border-color .3s;}
+  .value-card:hover{transform:translateY(-6px);border-color:rgba(255,92,0,0.4);}
+  .stat-num{font-variant-numeric:tabular-nums;}
+  @media (prefers-reduced-motion: reduce){
+    .hero-anim,.logo-anim,.reveal,.reveal-stagger>*{animation:none!important;transition:none!important;opacity:1!important;transform:none!important;}
+  }
+</style>
+<script id="tailwind-config">
+  tailwind.config={darkMode:"class",theme:{extend:{colors:{"secondary-container":"#feb700","primary":"#ffb59a","surface-container-lowest":"#0e0e0e","on-surface-variant":"#e4beb1","background":"#131313","secondary":"#ffdb9d","primary-container":"#ff5c00","error":"#ffb4ab","surface-container":"#201f1f","outline":"#ab897d","surface-container-low":"#1c1b1b","surface-bright":"#3a3939","on-surface":"#e5e2e1","on-background":"#e5e2e1","on-primary-container":"#521800","surface-container-high":"#2a2a2a","outline-variant":"#5b4137","surface-variant":"#353534","error-container":"#93000a","on-primary":"#5a1b00","on-secondary":"#412d00","on-tertiary":"#313030","tertiary":"#c8c6c5","inverse-surface":"#e5e2e1"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"12px",full:"9999px"},spacing:{"margin-mobile":"20px","stack-md":"16px","gutter":"24px","container-max":"1440px","unit":"4px","margin-desktop":"80px","stack-sm":"8px","stack-lg":"32px"},fontFamily:{"title-md":["Hanken Grotesk"],"headline-xl":["Hanken Grotesk"],"body-md":["Inter"],"headline-lg-mobile":["Hanken Grotesk"],"label-mono":["Geist"],"headline-lg":["Hanken Grotesk"],"data-display":["Geist"],"body-lg":["Inter"]},fontSize:{"title-md":["24px",{lineHeight:"32px",fontWeight:"500"}],"headline-xl":["56px",{lineHeight:"64px",letterSpacing:"-0.04em",fontWeight:"700"}],"body-md":["16px",{lineHeight:"24px",fontWeight:"400"}],"headline-lg-mobile":["32px",{lineHeight:"40px",letterSpacing:"-0.02em",fontWeight:"600"}],"label-mono":["14px",{lineHeight:"20px",letterSpacing:"0.05em",fontWeight:"500"}],"headline-lg":["40px",{lineHeight:"48px",letterSpacing:"-0.02em",fontWeight:"600"}],"data-display":["20px",{lineHeight:"24px",fontWeight:"600"}],"body-lg":["18px",{lineHeight:"28px",fontWeight:"400"}]}}}}
+</script>
+</head>
+<body class="dark selection:bg-primary-container selection:text-white">
+
+<header class="fixed top-0 w-full z-50 bg-background/40 backdrop-blur-xl border-b border-outline-variant/10 flex justify-between items-center px-6 md:px-margin-desktop py-4">
+  <div class="flex items-center gap-2 logo-anim">
+    <a href="index.html" style="display:inline-flex;align-items:center;"><svg width="26" height="26" viewBox="0 0 90 90" style="display:inline-block;vertical-align:middle;margin-right:7px;flex-shrink:0;"><polygon points="45,4 86,45 45,86 4,45" fill="#ff5c00"/><polygon points="45,14 76,45 45,76 14,45" fill="#c44a00"/><polygon points="45,26 64,45 45,64 26,45" fill="#000"/><line x1="33" y1="33" x2="57" y2="57" stroke="#ff5c00" stroke-width="5.5" stroke-linecap="round"/><line x1="57" y1="33" x2="33" y2="57" stroke="#ff5c00" stroke-width="5.5" stroke-linecap="round"/></svg><span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary tracking-tighter">CryptoX</span></a>
+  </div>
+  <nav class="hidden md:flex items-center gap-stack-lg">
+    <a class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-body-md text-body-md" href="index.html">Markets</a>
+    <a class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-body-md text-body-md" href="learn.html">Learn</a>
+    <a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md" href="about.html">About</a>
+    <a class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-body-md text-body-md" href="support.html">Support</a>
+  </nav>
+  <div class="flex items-center gap-4">
+    <button id="hamburger-btn" class="md:hidden flex items-center justify-center w-10 h-10 rounded-lg glass-panel text-primary" onclick="toggleMobileMenu()">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+    <a href="login.html" class="hidden sm:block text-on-surface font-body-md hover:text-primary transition-colors">Sign In</a>
+    <a href="signup.html" class="bg-primary-container text-on-primary-container px-6 py-2 rounded-full font-bold hover:scale-105 transition-transform active:scale-95 glow-amber">Get Started</a>
+  </div>
+</header>
+
+<main class="pt-32 pb-24 md:pb-16">
+  <!-- Hero -->
+  <section class="relative flex flex-col items-center text-center px-6 py-16 md:py-20 overflow-hidden">
+    <div class="absolute top-1/4 -left-20 w-96 h-96 bg-primary/10 blur-[120px] rounded-full parallax-orb" id="orb1"></div>
+    <div class="absolute bottom-1/4 -right-20 w-96 h-96 bg-primary-container/10 blur-[120px] rounded-full parallax-orb" id="orb2"></div>
+    <div class="z-10 max-w-3xl mx-auto space-y-stack-lg">
+      <div class="hero-anim d1 inline-flex items-center gap-2 glass-panel px-4 py-1.5 rounded-full border border-primary/20">
+        <span class="material-symbols-outlined text-primary text-sm">rocket_launch</span>
+        <span class="font-label-mono text-label-mono text-primary uppercase tracking-widest">Our Story</span>
+      </div>
+      <h1 class="hero-anim d2 font-headline-xl text-headline-xl leading-tight text-glow">
+        Built By Traders, <span class="text-primary italic">For Traders</span>
+      </h1>
+      <p class="hero-anim d3 font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+        CryptoX exists to make institutional-grade crypto infrastructure accessible to everyone — without sacrificing security or speed.
+      </p>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="px-6 md:px-margin-desktop py-10 max-w-container-max mx-auto">
+    <div class="reveal-stagger grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="glass-panel p-6 rounded-2xl text-center">
+        <p class="stat-num font-data-display text-3xl text-primary">120K+</p>
+        <p class="text-xs text-on-surface-variant font-label-mono uppercase tracking-wider mt-1">Active Traders</p>
+      </div>
+      <div class="glass-panel p-6 rounded-2xl text-center">
+        <p class="stat-num font-data-display text-3xl text-primary">40+</p>
+        <p class="text-xs text-on-surface-variant font-label-mono uppercase tracking-wider mt-1">Countries</p>
+      </div>
+      <div class="glass-panel p-6 rounded-2xl text-center">
+        <p class="stat-num font-data-display text-3xl text-primary">$2.8B</p>
+        <p class="text-xs text-on-surface-variant font-label-mono uppercase tracking-wider mt-1">Volume Traded</p>
+      </div>
+      <div class="glass-panel p-6 rounded-2xl text-center">
+        <p class="stat-num font-data-display text-3xl text-primary">99.98%</p>
+        <p class="text-xs text-on-surface-variant font-label-mono uppercase tracking-wider mt-1">Uptime</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section class="px-6 md:px-margin-desktop py-16 max-w-container-max mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div class="reveal space-y-stack-md">
+        <span class="font-label-mono text-xs text-primary uppercase tracking-widest">Our Mission</span>
+        <h2 class="font-headline-lg text-headline-lg leading-tight">Trading infrastructure that respects your time — and your money.</h2>
+        <p class="text-on-surface-variant font-body-lg text-body-lg">Most exchanges force a trade-off between speed, security, and simplicity. We didn't accept that. CryptoX was built from the ground up on a matching engine designed for low-latency execution, wrapped in an interface that never gets in your way.</p>
+        <p class="text-on-surface-variant font-body-lg text-body-lg">Every deposit, withdrawal, and P2P transfer runs through the same rigorous verification pipeline — because trust isn't a feature, it's the foundation.</p>
+      </div>
+      <div class="reveal grid grid-cols-2 gap-4">
+        <div class="glass-panel p-6 rounded-2xl space-y-2">
+          <span class="material-symbols-outlined text-primary text-2xl">bolt</span>
+          <p class="font-bold">Fast Execution</p>
+          <p class="text-xs text-on-surface-variant">Sub-millisecond order matching under real load.</p>
+        </div>
+        <div class="glass-panel p-6 rounded-2xl space-y-2 mt-8">
+          <span class="material-symbols-outlined text-primary text-2xl">verified_user</span>
+          <p class="font-bold">Verified Custody</p>
+          <p class="text-xs text-on-surface-variant">Segregated spot &amp; funding balances, always auditable.</p>
+        </div>
+        <div class="glass-panel p-6 rounded-2xl space-y-2">
+          <span class="material-symbols-outlined text-primary text-2xl">support_agent</span>
+          <p class="font-bold">Human Support</p>
+          <p class="text-xs text-on-surface-variant">Real people resolving disputes, not just bots.</p>
+        </div>
+        <div class="glass-panel p-6 rounded-2xl space-y-2 mt-8">
+          <span class="material-symbols-outlined text-primary text-2xl">public</span>
+          <p class="font-bold">Global Access</p>
+          <p class="text-xs text-on-surface-variant">Built for traders across time zones and currencies.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="px-6 md:px-margin-desktop py-16 max-w-container-max mx-auto">
+    <div class="reveal text-center mb-10">
+      <h2 class="font-headline-lg text-headline-lg">What We Stand For</h2>
+    </div>
+    <div class="reveal-stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div class="value-card glass-panel p-6 rounded-2xl border border-white/5 text-center">
+        <span class="material-symbols-outlined text-primary text-3xl mb-3 inline-block">encrypted</span>
+        <h3 class="font-bold mb-1">Security First</h3>
+        <p class="text-xs text-on-surface-variant">Every decision starts with "does this protect user funds."</p>
+      </div>
+      <div class="value-card glass-panel p-6 rounded-2xl border border-white/5 text-center">
+        <span class="material-symbols-outlined text-primary text-3xl mb-3 inline-block">visibility</span>
+        <h3 class="font-bold mb-1">Transparency</h3>
+        <p class="text-xs text-on-surface-variant">Clear fees, visible order books, no hidden spreads.</p>
+      </div>
+      <div class="value-card glass-panel p-6 rounded-2xl border border-white/5 text-center">
+        <span class="material-symbols-outlined text-primary text-3xl mb-3 inline-block">bolt</span>
+        <h3 class="font-bold mb-1">Relentless Speed</h3>
+        <p class="text-xs text-on-surface-variant">We optimize the stack so you're never waiting on us.</p>
+      </div>
+      <div class="value-card glass-panel p-6 rounded-2xl border border-white/5 text-center">
+        <span class="material-symbols-outlined text-primary text-3xl mb-3 inline-block">groups</span>
+        <h3 class="font-bold mb-1">Community-Led</h3>
+        <p class="text-xs text-on-surface-variant">Roadmap shaped by what traders actually ask for.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="px-6 md:px-margin-desktop py-16 max-w-container-max mx-auto">
+    <div class="reveal text-center mb-12">
+      <h2 class="font-headline-lg text-headline-lg">Our Journey</h2>
+    </div>
+    <div class="reveal-stagger max-w-2xl mx-auto space-y-8 relative before:content-[''] before:absolute before:left-[15px] before:top-2 before:bottom-2 before:w-px before:bg-outline-variant/20">
+      <div class="flex gap-6 relative">
+        <div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center flex-shrink-0 z-10 glow-amber"><span class="material-symbols-outlined text-xs text-on-primary-container">flag</span></div>
+        <div><p class="font-label-mono text-xs text-primary uppercase">Phase 1</p><p class="font-bold">Web MVP Launch</p><p class="text-sm text-on-surface-variant">Spot markets, wallets, and KYC go live.</p></div>
+      </div>
+      <div class="flex gap-6 relative">
+        <div class="w-8 h-8 rounded-full glass-panel flex items-center justify-center flex-shrink-0 z-10"><span class="material-symbols-outlined text-xs text-primary">sync_alt</span></div>
+        <div><p class="font-label-mono text-xs text-primary uppercase">Phase 2</p><p class="font-bold">Live Trading Engine</p><p class="text-sm text-on-surface-variant">Real-time order book and TradingView charts.</p></div>
+      </div>
+      <div class="flex gap-6 relative">
+        <div class="w-8 h-8 rounded-full glass-panel flex items-center justify-center flex-shrink-0 z-10"><span class="material-symbols-outlined text-xs text-primary">smartphone</span></div>
+        <div><p class="font-label-mono text-xs text-primary uppercase">Phase 3</p><p class="font-bold">Mobile Apps</p><p class="text-sm text-on-surface-variant">iOS &amp; Android with biometric sign-in.</p></div>
+      </div>
+      <div class="flex gap-6 relative">
+        <div class="w-8 h-8 rounded-full glass-panel flex items-center justify-center flex-shrink-0 z-10"><span class="material-symbols-outlined text-xs text-primary">public</span></div>
+        <div><p class="font-label-mono text-xs text-primary uppercase">Phase 4</p><p class="font-bold">Global Expansion</p><p class="text-sm text-on-surface-variant">Broader compliance coverage and new markets.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 px-6 md:px-margin-desktop text-center">
+    <div class="reveal max-w-2xl mx-auto space-y-5">
+      <h2 class="font-headline-lg text-headline-lg">Join us on the journey</h2>
+      <p class="text-on-surface-variant">Create your free account and start trading today.</p>
+      <a href="signup.html" class="inline-flex items-center gap-2 px-8 py-3.5 bg-primary-container text-on-primary-container rounded-full font-bold hover:scale-105 transition-transform glow-amber">Get Started <span class="material-symbols-outlined">trending_flat</span></a>
+    </div>
+  </section>
+</main>
+
+<!-- Mobile Drawer Menu -->
+<div id="mobile-drawer" class="fixed inset-0 z-[100] hidden md:hidden">
+  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="toggleMobileMenu()"></div>
+  <div class="absolute left-0 top-0 h-full w-72 z-10" style="background:rgba(10,10,10,0.98);border-right:1px solid rgba(255,255,255,0.08);">
+    <div class="flex items-center justify-between p-6 border-b border-white/5">
+      <span style="display:inline-flex;align-items:center;font-family:'Hanken Grotesk',sans-serif;font-size:20px;font-weight:800;color:#ffb59a;letter-spacing:-0.04em;"><svg width="26" height="26" viewBox="0 0 90 90" style="display:inline-block;vertical-align:middle;margin-right:7px;flex-shrink:0;"><polygon points="45,4 86,45 45,86 4,45" fill="#ff5c00"/><polygon points="45,14 76,45 45,76 14,45" fill="#c44a00"/><polygon points="45,26 64,45 45,64 26,45" fill="#000"/><line x1="33" y1="33" x2="57" y2="57" stroke="#ff5c00" stroke-width="5.5" stroke-linecap="round"/><line x1="57" y1="33" x2="33" y2="57" stroke="#ff5c00" stroke-width="5.5" stroke-linecap="round"/></svg>CryptoX</span>
+      <button onclick="toggleMobileMenu()" class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <nav class="p-4 space-y-1">
+      <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-white/5 font-label-mono text-sm transition-colors"><span class="material-symbols-outlined text-sm">home</span> Markets</a>
+      <a href="learn.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-white/5 font-label-mono text-sm transition-colors"><span class="material-symbols-outlined text-sm">school</span> Learn</a>
+      <a href="about.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-primary bg-primary-container/15 font-label-mono text-sm"><span class="material-symbols-outlined text-sm">info</span> About</a>
+      <a href="support.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-white/5 font-label-mono text-sm transition-colors"><span class="material-symbols-outlined text-sm">support_agent</span> Support</a>
+      <a href="login.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-white/5 font-label-mono text-sm transition-colors"><span class="material-symbols-outlined text-sm">login</span> Sign In</a>
+    </nav>
+    <div class="p-4 mt-4">
+      <a href="signup.html" class="block w-full bg-primary-container text-on-primary-container text-center py-3 rounded-xl font-bold" style="text-decoration:none;">Get Started →</a>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Bottom Nav -->
+<div class="fixed bottom-0 left-0 right-0 md:hidden z-50" style="background:rgba(13,13,13,0.97);backdrop-filter:blur(24px);border-top:1px solid rgba(255,255,255,0.07);padding:8px 0 14px;">
+  <div style="display:flex;justify-content:space-around;align-items:center;">
+    <a href="index.html" style="display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;">
+      <span class="material-symbols-outlined" style="font-size:22px;color:rgba(228,190,177,0.45);">home</span>
+      <span style="font-family:'Geist',monospace;font-size:9px;color:rgba(228,190,177,0.45);">Home</span>
+    </a>
+    <a href="about.html" style="display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;">
+      <span class="material-symbols-outlined" style="font-size:22px;color:#ff5c00;font-variation-settings:'FILL' 1;">info</span>
+      <span style="font-family:'Geist',monospace;font-size:9px;color:#ff5c00;">About</span>
+    </a>
+    <a href="signup.html" style="display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;">
+      <div style="width:46px;height:46px;border-radius:50%;background:#ff5c00;display:flex;align-items:center;justify-content:center;margin-top:-20px;box-shadow:0 0 20px rgba(255,92,0,0.5);">
+        <span class="material-symbols-outlined" style="font-size:22px;color:#fff;">rocket_launch</span>
+      </div>
+      <span style="font-family:'Geist',monospace;font-size:9px;color:rgba(228,190,177,0.45);">Start</span>
+    </a>
+    <a href="support.html" style="display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;">
+      <span class="material-symbols-outlined" style="font-size:22px;color:rgba(228,190,177,0.45);">support_agent</span>
+      <span style="font-family:'Geist',monospace;font-size:9px;color:rgba(228,190,177,0.45);">Support</span>
+    </a>
+    <a href="#" onclick="toggleMobileMenu()" style="display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;">
+      <span class="material-symbols-outlined" style="font-size:22px;color:rgba(228,190,177,0.45);">menu</span>
+      <span style="font-family:'Geist',monospace;font-size:9px;color:rgba(228,190,177,0.45);">Menu</span>
+    </a>
+  </div>
+</div>
+
+<script>
+function toggleMobileMenu(){
+  const d=document.getElementById('mobile-drawer');
+  d.classList.toggle('hidden');
+  document.body.style.overflow=d.classList.contains('hidden')?'':'hidden';
+}
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in-view'); revealObserver.unobserve(e.target); } });
+}, {threshold:0.15});
+document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => revealObserver.observe(el));
+if(window.matchMedia('(pointer:fine)').matches){
+  const orb1 = document.getElementById('orb1');
+  const orb2 = document.getElementById('orb2');
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 40;
+    const y = (e.clientY / window.innerHeight - 0.5) * 40;
+    if(orb1) orb1.style.transform = `translate(${x}px, ${y}px)`;
+    if(orb2) orb2.style.transform = `translate(${-x}px, ${-y}px)`;
+  });
+}
+</script>
+</body>
+</html>

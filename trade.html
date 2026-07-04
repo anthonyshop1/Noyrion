@@ -1,0 +1,293 @@
+<!DOCTYPE html><html class="dark" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>CryptoX | Trade</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Geist:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<style>
+  .glass-panel{background:rgba(26,26,26,0.4);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);}
+  .glass-panel-elevated{background:rgba(38,38,38,0.6);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border:1px solid rgba(255,255,255,0.12);}
+  .amber-glow-bg{background:radial-gradient(circle at center,rgba(255,92,0,0.15) 0%,transparent 70%);}
+  .custom-scrollbar::-webkit-scrollbar{width:4px;}
+  .custom-scrollbar::-webkit-scrollbar-thumb{background:rgba(255,92,0,0.3);border-radius:10px;}
+  .chart-glow{filter:drop-shadow(0 0 8px rgba(255,92,0,0.4));}
+  body{background-color:#000;color:#e5e2e1;overflow-x:hidden;}
+  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+  input, select, textarea { background-color: #0e0e0e !important; color: #e5e2e1 !important; -webkit-text-fill-color: #e5e2e1 !important; }
+  input::placeholder, textarea::placeholder { color: rgba(228,190,177,0.35) !important; }
+  .input-field{background:#0e0e0e;border:1px solid rgba(255,255,255,0.08);color:#e5e2e1;transition:border-color 0.2s;}
+  .input-field:focus{border-color:#ff5c00;outline:none;box-shadow:0 0 0 2px rgba(255,92,0,0.15);}
+
+  /* --- CryptoX 2.0 motion system --- */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes drawLine{from{stroke-dashoffset:1400;}to{stroke-dashoffset:0;}}
+  @keyframes rowIn{from{opacity:0;transform:translateX(-8px);}to{opacity:1;transform:translateX(0);}}
+  @keyframes rowInR{from{opacity:0;transform:translateX(8px);}to{opacity:1;transform:translateX(0);}}
+  @keyframes depthBar{from{width:0;}to{width:var(--w);}}
+  .card-anim{opacity:0;animation:fadeUp .55s cubic-bezier(.16,1,.3,1) forwards;}
+  .card-anim.c1{animation-delay:.05s} .card-anim.c2{animation-delay:.12s} .card-anim.c3{animation-delay:.19s} .card-anim.c4{animation-delay:.26s}
+  .chart-line{stroke-dasharray:1400;stroke-dashoffset:1400;animation:drawLine 1.6s cubic-bezier(.16,1,.3,1) .3s forwards;}
+  .ask-row{opacity:0;animation:rowIn .4s ease forwards;}
+  .bid-row{opacity:0;animation:rowInR .4s ease forwards;}
+  .depth-bar{width:0;animation:depthBar .6s cubic-bezier(.16,1,.3,1) forwards;}
+  .pulse-dot{animation:pulseDot 2s ease-in-out infinite;}
+  @keyframes pulseDot{0%,100%{opacity:1;}50%{opacity:.4;}}
+  .tab-btn{transition:background .25s,color .25s;}
+  .flash-green{animation:flashG .6s ease;}
+  .flash-red{animation:flashR .6s ease;}
+  @keyframes flashG{0%{background:rgba(74,222,128,0.25);}100%{background:transparent;}}
+  @keyframes flashR{0%{background:rgba(255,180,171,0.25);}100%{background:transparent;}}
+  @media (prefers-reduced-motion: reduce){
+    .card-anim,.chart-line,.ask-row,.bid-row,.depth-bar{animation:none!important;opacity:1!important;transform:none!important;width:var(--w,100%)!important;}
+  }
+</style>
+<script id="tailwind-config">
+  tailwind.config={darkMode:"class",theme:{extend:{colors:{"secondary-container":"#feb700","primary":"#ffb59a","surface-container-lowest":"#0e0e0e","on-surface-variant":"#e4beb1","background":"#131313","secondary":"#ffdb9d","primary-container":"#ff5c00","error":"#ffb4ab","error-container":"#93000a","surface-container":"#201f1f","outline":"#ab897d","surface-container-low":"#1c1b1b","surface-bright":"#3a3939","on-surface":"#e5e2e1","on-background":"#e5e2e1","on-primary-container":"#521800","surface-container-high":"#2a2a2a","outline-variant":"#5b4137","surface-variant":"#353534","on-primary":"#5a1b00","on-secondary":"#412d00"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"margin-mobile":"20px","stack-md":"16px","gutter":"24px","container-max":"1440px","unit":"4px","margin-desktop":"80px","stack-sm":"8px","stack-lg":"32px"},fontFamily:{"title-md":["Hanken Grotesk"],"headline-xl":["Hanken Grotesk"],"body-md":["Inter"],"headline-lg-mobile":["Hanken Grotesk"],"label-mono":["Geist"],"headline-lg":["Hanken Grotesk"],"data-display":["Geist"],"body-lg":["Inter"]},fontSize:{"title-md":["24px",{lineHeight:"32px",fontWeight:"500"}],"headline-xl":["64px",{lineHeight:"72px",letterSpacing:"-0.04em",fontWeight:"700"}],"body-md":["16px",{lineHeight:"24px",fontWeight:"400"}],"headline-lg-mobile":["32px",{lineHeight:"40px",letterSpacing:"-0.02em",fontWeight:"600"}],"label-mono":["14px",{lineHeight:"20px",letterSpacing:"0.05em",fontWeight:"500"}],"headline-lg":["40px",{lineHeight:"48px",letterSpacing:"-0.02em",fontWeight:"600"}],"data-display":["20px",{lineHeight:"24px",fontWeight:"600"}],"body-lg":["18px",{lineHeight:"28px",fontWeight:"400"}]}}}}
+</script>
+</head>
+<body class="bg-background text-on-background selection:bg-primary/30 selection:text-white">
+<div id="sidebar-placeholder"></div>
+<main class="md:ml-64 p-margin-mobile md:p-stack-lg min-h-screen relative overflow-x-hidden pb-20 md:pb-0">
+<div class="fixed top-0 right-0 w-[800px] h-[800px] amber-glow-bg pointer-events-none z-0"></div>
+
+<!-- Pair header -->
+<header class="card-anim c1 relative z-10 flex flex-wrap justify-between items-center gap-4 mb-stack-lg">
+  <div class="flex items-center gap-4 flex-wrap">
+    <div class="flex items-center gap-2">
+      <div class="w-9 h-9 rounded-full bg-primary-container/15 flex items-center justify-center font-bold text-primary">₿</div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h2 class="font-title-md text-title-md">BTC/USDT</h2>
+          <span class="material-symbols-outlined text-on-surface-variant/40 text-lg cursor-pointer hover:text-primary transition-colors">expand_more</span>
+        </div>
+        <p class="text-xs text-on-surface-variant/50 font-label-mono">Bitcoin</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-6 flex-wrap">
+      <div>
+        <p class="font-data-display text-xl text-primary" id="pairPrice">$64,289.40</p>
+        <p class="text-xs font-label-mono flex items-center gap-1" id="pairChange" style="color:#4ade80;"><span class="material-symbols-outlined text-sm">trending_up</span> +2.45%</p>
+      </div>
+      <div class="hidden sm:block"><p class="text-[10px] text-on-surface-variant/50 font-label-mono uppercase">24h High</p><p class="text-sm font-label-mono">$65,120.00</p></div>
+      <div class="hidden sm:block"><p class="text-[10px] text-on-surface-variant/50 font-label-mono uppercase">24h Low</p><p class="text-sm font-label-mono">$62,840.00</p></div>
+      <div class="hidden md:block"><p class="text-[10px] text-on-surface-variant/50 font-label-mono uppercase">24h Volume (BTC)</p><p class="text-sm font-label-mono">18,204.55</p></div>
+    </div>
+  </div>
+  <span class="text-on-surface-variant bg-surface-variant/30 px-3 py-1 rounded-full text-xs font-label-mono flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-primary pulse-dot"></span> Live Market</span>
+</header>
+
+<div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+
+  <!-- Chart -->
+  <section class="card-anim c2 lg:col-span-8 glass-panel p-stack-lg rounded-xl relative overflow-hidden">
+    <div class="flex justify-between items-center mb-stack-md">
+      <div class="flex gap-1">
+        <button class="px-3 py-1 rounded-lg text-xs font-label-mono hover:bg-primary/20 transition-colors">15m</button>
+        <button class="px-3 py-1 rounded-lg text-xs font-label-mono hover:bg-primary/20 transition-colors">1H</button>
+        <button class="px-3 py-1 rounded-lg text-xs font-label-mono bg-primary text-on-primary-container">4H</button>
+        <button class="px-3 py-1 rounded-lg text-xs font-label-mono hover:bg-primary/20 transition-colors">1D</button>
+        <button class="px-3 py-1 rounded-lg text-xs font-label-mono hover:bg-primary/20 transition-colors">1W</button>
+      </div>
+      <span class="text-[10px] font-label-mono text-on-surface-variant/40 hidden sm:block">TradingView chart integration — Phase 2</span>
+    </div>
+    <div class="h-72 md:h-96 w-full relative">
+      <svg class="w-full h-full chart-glow" viewBox="0 0 800 260" preserveAspectRatio="none">
+        <defs><linearGradient id="tGrad" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#ff5c00" stop-opacity="0.3"/><stop offset="100%" stop-color="#ff5c00" stop-opacity="0"/></linearGradient></defs>
+        <g stroke="rgba(255,255,255,0.04)" stroke-width="1">
+          <line x1="0" y1="52" x2="800" y2="52"/><line x1="0" y1="104" x2="800" y2="104"/><line x1="0" y1="156" x2="800" y2="156"/><line x1="0" y1="208" x2="800" y2="208"/>
+        </g>
+        <path class="chart-line" d="M0,190 C40,180 80,200 120,170 C160,145 200,155 240,120 C280,95 320,110 360,75 C400,50 440,65 480,45 C520,25 560,55 600,50 C640,45 680,65 720,35 C760,10 780,25 800,15" fill="transparent" stroke="#ff5c00" stroke-linecap="round" stroke-width="2.5"/>
+        <path d="M0,190 C40,180 80,200 120,170 C160,145 200,155 240,120 C280,95 320,110 360,75 C400,50 440,65 480,45 C520,25 560,55 600,50 C640,45 680,65 720,35 C760,10 780,25 800,15 V260 H0 Z" fill="url(#tGrad)"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Order book -->
+  <section class="card-anim c3 lg:col-span-4 glass-panel p-stack-lg rounded-xl flex flex-col">
+    <h3 class="font-title-md text-[16px] mb-3">Order Book</h3>
+    <div class="flex justify-between text-[10px] font-label-mono text-on-surface-variant/50 uppercase mb-2 px-1">
+      <span>Price (USDT)</span><span>Amount (BTC)</span><span>Total</span>
+    </div>
+    <!-- Asks (sell orders) -->
+    <div class="space-y-1 custom-scrollbar overflow-y-auto" id="asksList"></div>
+    <!-- Spread -->
+    <div class="flex items-center justify-center gap-2 py-2 my-1 border-y border-outline-variant/10">
+      <p class="font-data-display text-lg text-primary" id="midPrice">$64,289.40</p>
+      <span class="material-symbols-outlined text-primary text-sm">trending_up</span>
+    </div>
+    <!-- Bids (buy orders) -->
+    <div class="space-y-1 custom-scrollbar overflow-y-auto" id="bidsList"></div>
+  </section>
+
+  <!-- Order form -->
+  <section class="card-anim c4 lg:col-span-8 glass-panel p-stack-lg rounded-xl">
+    <div class="flex gap-2 mb-stack-md">
+      <button id="buyTab" onclick="setSide('buy')" class="tab-btn flex-1 py-2.5 rounded-xl font-bold text-sm" style="background:#4ade80;color:#052e12;">Buy BTC</button>
+      <button id="sellTab" onclick="setSide('sell')" class="tab-btn flex-1 py-2.5 rounded-xl font-bold text-sm text-on-surface-variant" style="background:rgba(255,255,255,0.05);">Sell BTC</button>
+    </div>
+    <div class="flex gap-1 mb-stack-md">
+      <button onclick="setOrderType('limit')" id="limitBtn" class="tab-btn px-4 py-1.5 rounded-lg text-xs font-label-mono bg-primary/20 text-primary">Limit</button>
+      <button onclick="setOrderType('market')" id="marketBtn" class="tab-btn px-4 py-1.5 rounded-lg text-xs font-label-mono text-on-surface-variant hover:bg-white/5">Market</button>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+      <div class="space-y-3">
+        <div id="priceField">
+          <label class="block text-xs font-label-mono text-on-surface-variant uppercase tracking-wider mb-1.5">Price (USDT)</label>
+          <input type="number" id="orderPrice" value="64289.40" class="input-field w-full px-4 py-2.5 rounded-xl font-data-display text-sm"/>
+        </div>
+        <div>
+          <label class="block text-xs font-label-mono text-on-surface-variant uppercase tracking-wider mb-1.5">Amount (BTC)</label>
+          <input type="number" id="orderAmount" placeholder="0.00" oninput="updateTotal()" class="input-field w-full px-4 py-2.5 rounded-xl font-data-display text-sm"/>
+        </div>
+        <input type="range" min="0" max="100" value="0" oninput="setPct(this.value)" class="w-full accent-primary-container"/>
+        <div class="flex justify-between text-[10px] font-label-mono text-on-surface-variant/40">
+          <span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>
+        </div>
+        <div>
+          <label class="block text-xs font-label-mono text-on-surface-variant uppercase tracking-wider mb-1.5">Total (USDT)</label>
+          <input type="number" id="orderTotal" placeholder="0.00" readonly class="input-field w-full px-4 py-2.5 rounded-xl font-data-display text-sm opacity-70"/>
+        </div>
+        <button id="submitOrderBtn" onclick="submitOrder()" class="w-full py-3 rounded-xl font-bold text-sm hover:scale-[1.02] active:scale-95 transition-transform" style="background:#4ade80;color:#052e12;">Buy BTC</button>
+      </div>
+      <div class="space-y-4">
+        <div class="glass-panel p-4 rounded-xl space-y-2">
+          <div class="flex justify-between text-xs font-label-mono text-on-surface-variant/60"><span>Available Balance</span><span class="text-on-surface">0.00 USDT</span></div>
+          <div class="flex justify-between text-xs font-label-mono text-on-surface-variant/60"><span>Trading Fee</span><span class="text-on-surface">0.10%</span></div>
+          <div class="flex justify-between text-xs font-label-mono text-on-surface-variant/60"><span>Est. Receive</span><span class="text-on-surface">0.00 BTC</span></div>
+        </div>
+        <div class="glass-panel p-4 rounded-xl">
+          <p class="text-xs font-label-mono text-on-surface-variant/50 leading-relaxed">💡 Deposit funds first to start trading. Orders placed here will be enabled once your Funding Balance is topped up.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Open orders / recent trades -->
+<div class="card-anim c4 relative z-10 mt-gutter glass-panel p-stack-lg rounded-xl">
+  <div class="flex gap-6 mb-stack-md border-b border-outline-variant/10 pb-3">
+    <button class="text-sm font-bold text-primary border-b-2 border-primary pb-3 -mb-3.5">Open Orders (0)</button>
+    <button class="text-sm text-on-surface-variant/60 hover:text-on-surface transition-colors">Order History</button>
+    <button class="text-sm text-on-surface-variant/60 hover:text-on-surface transition-colors">Trade History</button>
+  </div>
+  <div class="flex flex-col items-center justify-center py-10 text-center">
+    <span class="material-symbols-outlined text-on-surface-variant/30 text-4xl mb-2">receipt_long</span>
+    <p class="font-label-mono text-sm text-on-surface-variant/50">No open orders</p>
+    <p class="text-xs text-on-surface-variant/30 mt-1">Your active orders will appear here</p>
+  </div>
+</div>
+
+</main>
+<script src="_sidebar.js"></script>
+<script>
+document.getElementById('sidebar-placeholder').innerHTML=SIDEBAR('trade');
+
+let currentSide = 'buy';
+let currentType = 'limit';
+const basePrice = 64289.40;
+
+function genOrderBook(){
+  const asksList = document.getElementById('asksList');
+  const bidsList = document.getElementById('bidsList');
+  asksList.innerHTML=''; bidsList.innerHTML='';
+  let asks=[], bids=[], maxTotal=0;
+  for(let i=8;i>=1;i--){
+    const price = basePrice + i*4.2 + Math.random()*2;
+    const amount = (Math.random()*0.8+0.05).toFixed(4);
+    const total = price*amount;
+    asks.push({price,amount,total});
+  }
+  for(let i=1;i<=8;i++){
+    const price = basePrice - i*4.2 - Math.random()*2;
+    const amount = (Math.random()*0.8+0.05).toFixed(4);
+    const total = price*amount;
+    bids.push({price,amount,total});
+  }
+  maxTotal = Math.max(...asks.map(a=>a.total), ...bids.map(b=>b.total));
+  asks.forEach((a,i)=>{
+    const w = Math.round((a.total/maxTotal)*100);
+    asksList.innerHTML += `<div class="ask-row relative flex justify-between text-xs font-label-mono py-1 px-1 rounded" style="animation-delay:${i*0.03}s;">
+      <div class="depth-bar absolute inset-y-0 right-0 bg-error/10 rounded" style="--w:${w}%;"></div>
+      <span class="relative z-10" style="color:#ffb4ab;">${a.price.toFixed(2)}</span>
+      <span class="relative z-10 text-on-surface-variant/70">${a.amount}</span>
+      <span class="relative z-10 text-on-surface-variant/50">${a.total.toFixed(0)}</span>
+    </div>`;
+  });
+  bids.forEach((b,i)=>{
+    const w = Math.round((b.total/maxTotal)*100);
+    bidsList.innerHTML += `<div class="bid-row relative flex justify-between text-xs font-label-mono py-1 px-1 rounded" style="animation-delay:${i*0.03}s;">
+      <div class="depth-bar absolute inset-y-0 right-0 bg-primary/10 rounded" style="--w:${w}%;"></div>
+      <span class="relative z-10" style="color:#4ade80;">${b.price.toFixed(2)}</span>
+      <span class="relative z-10 text-on-surface-variant/70">${b.amount}</span>
+      <span class="relative z-10 text-on-surface-variant/50">${b.total.toFixed(0)}</span>
+    </div>`;
+  });
+}
+genOrderBook();
+
+function setSide(side){
+  currentSide = side;
+  const buyTab = document.getElementById('buyTab');
+  const sellTab = document.getElementById('sellTab');
+  const btn = document.getElementById('submitOrderBtn');
+  if(side==='buy'){
+    buyTab.style.background='#4ade80'; buyTab.style.color='#052e12'; buyTab.classList.remove('text-on-surface-variant');
+    sellTab.style.background='rgba(255,255,255,0.05)'; sellTab.style.color=''; sellTab.classList.add('text-on-surface-variant');
+    btn.style.background='#4ade80'; btn.style.color='#052e12'; btn.textContent='Buy BTC';
+  } else {
+    sellTab.style.background='#ffb4ab'; sellTab.style.color='#680003'; sellTab.classList.remove('text-on-surface-variant');
+    buyTab.style.background='rgba(255,255,255,0.05)'; buyTab.style.color=''; buyTab.classList.add('text-on-surface-variant');
+    btn.style.background='#ffb4ab'; btn.style.color='#680003'; btn.textContent='Sell BTC';
+  }
+}
+function setOrderType(type){
+  currentType = type;
+  const limitBtn = document.getElementById('limitBtn');
+  const marketBtn = document.getElementById('marketBtn');
+  const priceField = document.getElementById('priceField');
+  if(type==='limit'){
+    limitBtn.classList.add('bg-primary/20','text-primary'); limitBtn.classList.remove('text-on-surface-variant');
+    marketBtn.classList.remove('bg-primary/20','text-primary'); marketBtn.classList.add('text-on-surface-variant');
+    priceField.style.display='';
+  } else {
+    marketBtn.classList.add('bg-primary/20','text-primary'); marketBtn.classList.remove('text-on-surface-variant');
+    limitBtn.classList.remove('bg-primary/20','text-primary'); limitBtn.classList.add('text-on-surface-variant');
+    priceField.style.display='none';
+  }
+}
+function updateTotal(){
+  const price = parseFloat(document.getElementById('orderPrice').value)||basePrice;
+  const amount = parseFloat(document.getElementById('orderAmount').value)||0;
+  document.getElementById('orderTotal').value = (price*amount).toFixed(2);
+}
+function setPct(pct){
+  // Placeholder: without a real balance connected, just visually scales a nominal max amount
+  const maxAmount = 0; // will be wired to real available balance in backend phase
+  document.getElementById('orderAmount').value = (maxAmount*(pct/100)).toFixed(4);
+  updateTotal();
+}
+function submitOrder(){
+  const amount = parseFloat(document.getElementById('orderAmount').value);
+  if(!amount || amount<=0){
+    const el = document.getElementById('orderAmount');
+    el.style.borderColor = '#ffb4ab';
+    el.classList.add('flash-red');
+    setTimeout(()=>el.classList.remove('flash-red'),600);
+    return;
+  }
+  alert('Order submission will be enabled once your account is funded and the trading engine (Phase 2) is connected.');
+}
+
+// Live price ticker
+setInterval(()=>{
+  const p = document.getElementById('pairPrice');
+  const mid = document.getElementById('midPrice');
+  if(p){
+    const v = (basePrice+(Math.random()-0.5)*80);
+    const formatted = '$'+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+    p.textContent = formatted;
+    if(mid) mid.textContent = formatted;
+  }
+},3000);
+</script>
+</body></html>

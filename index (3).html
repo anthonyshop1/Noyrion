@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CryptoX | Professional Crypto Investment Platform</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<style>
+  .glass-panel{background:rgba(26,26,26,0.4);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08);}
+  .glass-modal{background:rgba(38,38,38,0.6);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);border:1px solid rgba(255,255,255,0.15);}
+  .glow-amber{box-shadow:0 0 30px -5px rgba(255,92,0,0.4);}
+  .text-glow{text-shadow:0 0 15px rgba(255,181,154,0.3);}
+  .hero-gradient{background:radial-gradient(circle at 50% 30%,rgba(255,92,0,0.15) 0%,rgba(0,0,0,1) 70%);}
+  .chart-glow{filter:drop-shadow(0 0 8px rgba(255,92,0,0.5));}
+  body{background-color:#000000;color:#e5e2e1;overflow-x:hidden;}
+  .animate-float{animation:float 6s ease-in-out infinite;}
+  @keyframes float{0%{transform:translateY(0px);}50%{transform:translateY(-20px);}100%{transform:translateY(0px);}}
+  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;}
+
+  /* --- CryptoX 2.0 motion system --- */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes popIn{from{opacity:0;transform:translateY(16px) scale(0.94);}to{opacity:1;transform:translateY(0) scale(1);}}
+  @keyframes drawLine{from{stroke-dashoffset:1000;}to{stroke-dashoffset:0;}}
+  @keyframes logoSpin{from{transform:rotate(-8deg) scale(0.9);opacity:0;}to{transform:rotate(0) scale(1);opacity:1;}}
+  .hero-anim{opacity:0;animation:fadeUp 0.9s cubic-bezier(.16,1,.3,1) forwards;}
+  .hero-anim.d1{animation-delay:.05s} .hero-anim.d2{animation-delay:.18s} .hero-anim.d3{animation-delay:.32s} .hero-anim.d4{animation-delay:.46s}
+  .logo-anim{animation:logoSpin .7s cubic-bezier(.16,1,.3,1) both;}
+  .float-card{opacity:0;animation:popIn .8s cubic-bezier(.16,1,.3,1) forwards, float 6s ease-in-out infinite;animation-delay:.6s, 1.4s;}
+  .float-card.fc2{animation-delay:.75s, 1.4s;}
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);}
+  .reveal.in-view{opacity:1;transform:translateY(0);}
+  .reveal-stagger > *{opacity:0;transform:translateY(20px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1);}
+  .reveal-stagger.in-view > *{opacity:1;transform:translateY(0);}
+  .reveal-stagger.in-view > *:nth-child(1){transition-delay:.05s}
+  .reveal-stagger.in-view > *:nth-child(2){transition-delay:.15s}
+  .reveal-stagger.in-view > *:nth-child(3){transition-delay:.25s}
+  .reveal-stagger.in-view > *:nth-child(4){transition-delay:.35s}
+  .coin-row{opacity:0;animation:fadeUp .5s ease forwards;}
+  .tilt-panel{transition:transform .25s cubic-bezier(.16,1,.3,1);transform-style:preserve-3d;will-change:transform;}
+  .btc-line{stroke-dasharray:1000;stroke-dashoffset:1000;animation:drawLine 1.8s cubic-bezier(.16,1,.3,1) .3s forwards;}
+  .parallax-orb{transition:transform .6s cubic-bezier(.16,1,.3,1);}
+  @media (prefers-reduced-motion: reduce){
+    .hero-anim,.logo-anim,.float-card,.reveal,.reveal-stagger>*,.coin-row,.btc-line{animation:none!important;transition:none!important;opacity:1!important;transform:none!important;stroke-dashoffset:0!important;}
+  }
+
+    /* Fix white input background */
+    input, select, textarea {
+      background-color: #0e0e0e !important;
+      color: #e5e2e1 !important;
+      -webkit-text-fill-color: #e5e2e1 !important;
+    }
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus {
+      -webkit-box-shadow: 0 0 0px 1000px #0e0e0e inset !important;
+      -webkit-text-fill-color: #e5e2e1 !important;
+      caret-color: #e5e2e1 !important;
+    }
+    input::placeholder, textarea::placeholder { 
+      color: rgba(228,190,177,0.35) !important; 
+    }
+    select option {
+      background: #0e0e0e;
+      color: #e5e2e1;
+    }
+
+    </style>
+<script id="tailwind-config">
+  tailwind.config={darkMode:"class",theme:{extend:{colors:{"secondary-container":"#feb700","primary":"#ffb59a","surface-container-lowest":"#0e0e0e","on-surface-variant":"#e4beb1","background":"#131313","secondary":"#ffdb9d","primary-container":"#ff5c00","error":"#ffb4ab","surface-container":"#201f1f","outline":"#ab897d","surface-container-low":"#1c1b1b","surface-bright":"#3a3939","on-surface":"#e5e2e1","on-background":"#e5e2e1","on-primary-container":"#521800","surface-container-high":"#2a2a2a","outline-variant":"#5b4137","surface-variant":"#353534","error-container":"#93000a","on-primary":"#5a1b00","on-secondary":"#412d00","on-tertiary":"#313030","tertiary":"#c8c6c5","inverse-surface":"#e5e2e1"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"12px",full:"9999px"},spacing:{"margin-mobile":"20px","stack-md":"16px","gutter":"24px","container-max":"1440px","unit":"4px","margin-desktop":"80px","stack-sm":"8px","stack-lg":"32px"},fontFamily:{"title-md":["Hanken Grotesk"],"headline-xl":["Hanken Grotesk"],"body-md":["Inter"],"headline-lg-mobile":["Hanken Grotesk"],"label-mono":["Geist"],"headline-lg":["Hanken Grotesk"],"data-display":["Geist"],"body-lg":["Inter"]},fontSize:{"title-md":["24px",{lineHeight:"32px",fontWeight:"500"}],"headline-xl":["64px",{lineHeight:"72px",letterSpacing:"-0.04em",fontWeight:"700"}],"body-md":["16px",{lineHeight:"24px",fontWeight:"400"}],"headline-lg-mobile":["32px",{lineHeight:"40px",letterSpacing:"-0.02em",fontWeight:"600"}],"label-mono":["14px",{lineHeight:"20px",letterSpacing:"0.05em",fontWeight:"500"}],"headline-lg":["40px",{lineHeight:"48px",letterSpacing:"-0.02em",fontWeight:"600"}],"data-display":["20px",{lineHeight:"24px",fontWeight:"600"}],"body-lg":["18px",{lineHeight:"28px",fontWeight:"400"}]}}}}
+</script>
+</head>
+<body class="dark selection:bg-primary-container selection:text-white">
+
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-background/40 backdrop-blur-xl border-b border-outline-variant/10 flex justify-between items-center px-6 md:px-margin-desktop py-4">
+  <div class="flex items-center gap-2 logo-anim">
+    <span style="display:inline-flex;align-items:center;"><svg width="26" height="26" viewBox="0 0 90 90" style="display:inline-block;vertical-align:middle;margin-right:7px;flex-shrink:0;"><polygon points="45,4 86,45 45,86 4,45" fill="#ff5c00"/><polygon points="45,14 76,45 45,76 14,45" fill="#c44a00"/><polygon points="45,26 64,45 45,64 26,45" fill="#000"/><line x1="33" y1="33" x2="57" y2="57" stroke="#ff5c00" stroke-width="5.5" stroke-linecap="round"/><line x1="57" y1="33" x2="33" y2="57" stroke="#ff5c00" stroke-width="5.5" stroke-linecap="round"/></svg><span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary tracking-tighter">CryptoX</span></span>
+  </div>
+  <nav class="hidden md:flex items-center gap-stack-lg">
+    <a class="text-primary font-bold border-b-2 border-primary pb-1 font-body-md text-body-md" href="index.html">Markets</a>
+    <a class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-body-md text-body-md" href="learn.html">Learn</a>
+    <a class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-body-md text-body-md" href="about.html">About</a>
+    <a class="text-on-surface-variant hover:text-primary transition-colors duration-300 font-body-md text-body-md" href="support.html">Support</a>
+  </nav>
+  <div class="flex items-center gap-4">
+    
+  <!-- Hamburger button (mobile only) -->
+  <button id="hamburger-btn" class="md:hidden flex items-center justify-center w-10 h-10 rounded-lg glass-panel text-primary" onclick="toggleMobileMenu()">
+    <span class="material-symbols-outlined">menu</span>
+  </button>
+
+    <a href="login.html" class="hidden sm:block text-on-surface font-body-md hover:text-primary transition-colors">Sign In</a>
+    <a href="signup.html" class="bg-primary-container text-on-primary-container px-6 py-2 rounded-full font-bold hover:scale-105 transition-transform active:scale-95 glow-amber">Get Started</a>
+  </div>
+</header>
+
+<main class="pt-32 pb-24 md:pb-0">
+  <!-- Hero Section -->
+  <section class="hero-gradient min-h-[921px] flex flex-col items-center justify-center text-center px-margin-mobile relative overflow-hidden">
+    <div class="absolute top-1/4 -left-20 w-96 h-96 bg-primary/10 blur-[120px] rounded-full parallax-orb" id="orb1"></div>
+    <div class="absolute bottom-1/4 -right-20 w-96 h-96 bg-primary-container/10 blur-[120px] rounded-full parallax-orb" id="orb2"></div>
+    <div class="z-10 max-w-4xl mx-auto space-y-stack-lg">
+      <div class="hero-anim d1 inline-flex items-center gap-2 glass-panel px-4 py-1.5 rounded-full border border-primary/20">
+        <span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+        <span class="font-label-mono text-label-mono text-primary uppercase tracking-widest">v2.0 Performance Engine Live</span>
+      </div>
+      <h1 class="hero-anim d2 font-headline-xl text-headline-xl md:text-[80px] leading-tight text-glow">
+        Step Into The Future Of <span class="text-primary italic">Crypto Trading</span>
+      </h1>
+      <p class="hero-anim d3 font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+        Institutional-grade infrastructure meets AI-optimized execution. Trade with the precision of a professional firm.
+      </p>
+      <div class="hero-anim d4 flex flex-col sm:flex-row items-center justify-center gap-gutter pt-stack-md">
+        <a href="signup.html" class="w-full sm:w-auto px-10 py-4 bg-primary-container text-on-primary-container rounded-full font-bold text-lg hover:scale-105 transition-transform glow-amber flex items-center justify-center gap-2">
+          Get Started <span class="material-symbols-outlined">trending_flat</span>
+        </a>
+        <button class="w-full sm:w-auto px-10 py-4 glass-panel text-on-surface rounded-full font-bold text-lg border border-white/10 hover:bg-white/5 transition-colors">
+          View Markets
+        </button>
+      </div>
+    </div>
+    <div class="hidden lg:block absolute top-[45%] left-[10%] float-card">
+      <div class="glass-panel p-4 rounded-xl border-primary/20">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary">security</span>
+          <div class="text-left">
+            <p class="text-label-mono text-[10px] text-on-surface-variant uppercase">Security Grade</p>
+            <p class="font-data-display text-primary">MIL-SPEC</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hidden lg:block absolute top-[55%] right-[12%] float-card fc2">
+      <div class="glass-panel p-4 rounded-xl border-primary/20">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary">bolt</span>
+          <div class="text-left">
+            <p class="text-label-mono text-[10px] text-on-surface-variant uppercase">Execution Speed</p>
+            <p class="font-data-display text-primary">0.02ms</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Markets Live Section -->
+<section class="px-6 md:px-margin-desktop py-16 max-w-container-max mx-auto">
+  <div class="reveal flex flex-col md:flex-row justify-between items-end mb-10 gap-4">
+    <div>
+      <h2 class="font-headline-lg text-headline-lg">Market Hub</h2>
+      <p class="text-on-surface-variant font-body-md">Live prices — updated every 30 seconds</p>
+    </div>
+    <div class="flex items-center gap-3">
+      <div id="market-status" class="flex items-center gap-2 glass-panel px-3 py-1.5 rounded-full">
+        <div class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+        <span class="font-label-mono text-xs text-on-surface-variant">Live</span>
+      </div>
+      <input type="text" id="coin-search" placeholder="Search coin..." 
+        class="glass-panel px-4 py-2 rounded-full font-label-mono text-sm text-on-surface border-0 focus:outline-none focus:ring-1 focus:ring-primary/50"
+        style="background:rgba(26,26,26,0.5);color:#e5e2e1;width:160px;"
+        oninput="filterCoins(this.value)"/>
+    </div>
+  </div>
+
+  <!-- Featured BTC/ETH large cards -->
+  <div class="reveal-stagger grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+    <div class="glass-panel p-6 rounded-xl group relative overflow-hidden hover:-translate-y-1 transition-transform duration-300" id="featured-btc">
+      <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+      <div class="flex justify-between items-start mb-6 relative z-10">
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-full flex items-center justify-center text-white font-bold text-lg" style="background:#f7931a;">₿</div>
+          <div>
+            <h3 class="font-title-md text-base font-bold">Bitcoin</h3>
+            <p class="font-label-mono text-xs text-on-surface-variant">BTC/USDT</p>
+          </div>
+        </div>
+        <div class="text-right">
+          <p class="font-data-display text-xl font-bold" id="btc-price-big">—</p>
+          <p class="font-label-mono text-sm" id="btc-change-big">—</p>
+        </div>
+      </div>
+      <svg class="w-full h-20 chart-glow" viewBox="0 0 400 80" preserveAspectRatio="none">
+        <defs><linearGradient id="btcGrad" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#ff5c00" stop-opacity="0.3"/><stop offset="100%" stop-color="#ff5c00" stop-opacity="0"/></linearGradient></defs>
+        <path id="btc-chart" class="btc-line" d="M0,60 C80,40 160,55 240,30 C320,10 360,20 400,5" fill="transparent" stroke="#ff5c00" stroke-width="2.5" stroke-linecap="round"/>
+        <path id="btc-chart-fill" d="M0,60 C80,40 160,55 240,30 C320,10 360,20 400,5 V80 H0 Z" fill="url(#btcGrad)"/>
+      </svg>
+    </div>
+    <div class="glass-panel p-6 rounded-xl group relative overflow-hidden hover:-translate-y-1 transition-transform duration-300" id="featured-eth">
+      <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+      <div class="flex justify-between items-start mb-6 relative z-10">
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-full flex items-center justify-center text-white font-bold text-lg" style="background:#627eea;">Ξ</div>
+          <div>
+            <h3 class="font-title-md text-base font-bold">Ethereum</h3>
+            <p class="font-label-mono text-xs text-on-surface-variant">ETH/USDT</p>
+          </div>
+        </div>
+        <div class="text-right">
+          <p class="font-data-display text-xl font-bold" id="eth-price-big">—</p>
+          <p class="font-label-mono text-sm" id="eth-change-big">—</p>
+        </div>
+      </div>
+      <svg class="w-full h-20" viewBox="0 0 400 80" preserveAspectRatio="none">
+        <defs><linearGradient id="ethGrad" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#627eea" stop-opacity="0.3"/><stop offset="100%" stop-color="#627eea" stop-opacity="0"/></linearGradient></defs>
+        <path id="eth-chart" d="M0,70 C60,50 120,60 200,35 C280,10 340,25 400,15" fill="transparent" stroke="#627eea" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M0,70 C60,50 120,60 200,35 C280,10 340,25 400,15 V80 H0 Z" fill="url(#ethGrad)"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- All coins table -->
+  <div class="reveal glass-panel rounded-xl overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full border-collapse">
+        <thead>
+          <tr style="background:rgba(20,20,20,0.8);border-bottom:1px solid rgba(255,255,255,0.06);">
+            <th class="px-5 py-3 text-left font-label-mono text-xs text-on-surface-variant uppercase tracking-wider">#</th>
+            <th class="px-5 py-3 text-left font-label-mono text-xs text-on-surface-variant uppercase tracking-wider">Coin</th>
+            <th class="px-5 py-3 text-right font-label-mono text-xs text-on-surface-variant uppercase tracking-wider">Price</th>
+            <th class="px-5 py-3 text-right font-label-mono text-xs text-on-surface-variant uppercase tracking-wider">24h %</th>
+            <th class="px-5 py-3 text-right font-label-mono text-xs text-on-surface-variant uppercase tracking-wider hidden md:table-cell">Market Cap</th>
+            <th class="px-5 py-3 text-right font-label-mono text-xs text-on-surface-variant uppercase tracking-wider hidden md:table-cell">Volume 24h</th>
+            <th class="px-5 py-3 text-right font-label-mono text-xs text-on-surface-variant uppercase tracking-wider hidden lg:table-cell">7d Chart</th>
+          </tr>
+        </thead>
+        <tbody id="coins-table-body">
+          <!-- Loading skeleton -->
+          <tr><td colspan="7" class="px-5 py-12 text-center">
+            <div class="flex flex-col items-center gap-3">
+              <div class="w-8 h-8 border-2 border-primary/40 border-t-primary rounded-full animate-spin"></div>
+              <span class="font-label-mono text-xs text-on-surface-variant">Fetching live prices...</span>
+            </div>
+          </td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="px-5 py-3 border-t border-outline-variant/10 flex justify-between items-center">
+      <span class="font-label-mono text-xs text-on-surface-variant/50" id="last-updated">Updating...</span>
+      <span class="font-label-mono text-xs text-primary cursor-pointer hover:underline" onclick="fetchMarketData()">↻ Refresh</span>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+  <section class="py-stack-lg px-6 md:px-margin-desktop bg-surface-container-lowest/30">
+    <div class="max-w-container-max mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+      <div class="reveal space-y-stack-lg">
+        <h2 class="font-headline-lg text-headline-lg leading-tight">Institutional Power,<br/><span class="text-primary">Simplified for You.</span></h2>
+        <p class="font-body-lg text-body-lg text-on-surface-variant">We've distilled the complex tools of Wall Street into a sleek, high-performance interface.</p>
+        <div class="reveal-stagger space-y-gutter">
+          <div class="flex gap-stack-md">
+            <div class="flex-shrink-0 w-12 h-12 rounded-xl glass-modal flex items-center justify-center text-primary">
+              <span class="material-symbols-outlined">psychology</span>
+            </div>
+            <div>
+              <h4 class="font-title-md text-lg font-bold">AI Portfolio Balancing</h4>
+              <p class="text-on-surface-variant text-sm">Our neural networks analyze 10,000+ data points per second to suggest optimal asset weighting.</p>
+            </div>
+          </div>
+          <div class="flex gap-stack-md">
+            <div class="flex-shrink-0 w-12 h-12 rounded-xl glass-modal flex items-center justify-center text-primary">
+              <span class="material-symbols-outlined">layers</span>
+            </div>
+            <div>
+              <h4 class="font-title-md text-lg font-bold">Deep Liquidity Aggregation</h4>
+              <p class="text-on-surface-variant text-sm">Zero slippage execution by pooling orders across 20+ top-tier exchanges simultaneously.</p>
+            </div>
+          </div>
+          <div class="flex gap-stack-md">
+            <div class="flex-shrink-0 w-12 h-12 rounded-xl glass-modal flex items-center justify-center text-primary">
+              <span class="material-symbols-outlined">lock_person</span>
+            </div>
+            <div>
+              <h4 class="font-title-md text-lg font-bold">Quantum-Grade Custody</h4>
+              <p class="text-on-surface-variant text-sm">Multi-signature cold storage with periodic security audits by world-leading firms.</p>
+            </div>
+          </div>
+        </div>
+        <a href="signup.html" class="inline-flex items-center gap-2 bg-primary-container text-on-primary-container px-8 py-3 rounded-full font-bold hover:scale-105 transition-transform glow-amber">
+          Start Trading <span class="material-symbols-outlined">trending_flat</span>
+        </a>
+      </div>
+      <div class="reveal relative group" id="os-panel-wrap">
+        <div class="absolute -inset-4 bg-primary/20 blur-3xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
+        <div class="tilt-panel glass-modal p-stack-lg rounded-2xl relative border-white/5 overflow-hidden" id="os-panel">
+          <div class="flex justify-between items-center mb-8">
+            <div class="flex gap-2">
+              <div class="w-3 h-3 rounded-full bg-error"></div>
+              <div class="w-3 h-3 rounded-full bg-secondary"></div>
+              <div class="w-3 h-3 rounded-full bg-primary-container"></div>
+            </div>
+            <span class="font-label-mono text-[10px] text-on-surface-variant">CRYPTOX_CORE_OS_V2</span>
+          </div>
+          <div class="space-y-stack-md">
+            <div class="grid grid-cols-2 gap-stack-md">
+              <div class="h-24 glass-panel rounded-lg flex flex-col justify-center items-center">
+                <span class="text-primary font-data-display text-2xl">98.4%</span>
+                <span class="text-[10px] font-label-mono text-on-surface-variant uppercase">Uptime</span>
+              </div>
+              <div class="h-24 glass-panel rounded-lg flex flex-col justify-center items-center">
+                <span class="text-secondary font-data-display text-2xl">4.2M</span>
+                <span class="text-[10px] font-label-mono text-on-surface-variant uppercase">TPS</span>
+              </div>
+            </div>
+            <div class="p-4 bg-primary-container/10 border border-primary-container/20 rounded-lg">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-xs font-bold text-primary">SYSTEM ALERT</span>
+                <span class="text-[10px] text-primary/60">JUST NOW</span>
+              </div>
+              <p class="text-xs text-on-surface leading-relaxed">Whale alert: 50,000 BTC moved. Market volatility expected +2%.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-24 px-6 md:px-margin-desktop text-center">
+    <div class="reveal max-w-3xl mx-auto space-y-stack-lg glass-panel p-12 rounded-3xl border-primary/10">
+      <h2 class="font-headline-lg text-headline-lg">Ready to Evolve?</h2>
+      <p class="font-body-lg text-on-surface-variant">Join over 120,000 traders globally who have made CryptoX their home for digital asset management.</p>
+      <a href="signup.html" class="inline-block bg-primary-container text-on-primary-container px-12 py-4 rounded-full font-bold text-xl glow-amber hover:scale-105 transition-all">
+        Create Your Free Account
+      </a>
+      <div class="pt-8 flex justify-center gap-12 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+        <div class="font-bold tracking-tighter text-2xl">COINBASE</div>
+        <div class="font-bold tracking-tighter text-2xl">BINANCE</div>
+        <div class="font-bold tracking-tighter text-2xl">KRAKEN</div>
+        <div class="font-bold tracking-tighter text-2xl">GEMINI</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="w-full py-stack-lg bg-surface-container-lowest border-t border-outline-variant/10">
+  <div class="flex flex-col md:flex-row justify-between items-center px-6 md:px-margin-desktop gap-stack-md max-w-container-max mx-auto">
+    <div>
+      <span class="font-title-md text-title-md text-primary font-bold" style="display:inline-flex;align-items:center;"><svg width="26" height="26" viewBox="0 0 90 90" style="display:inline-block;vertical-align:middle;margin-right:7px;flex-shrink:0;"><polygon points="45,4 86,45 45,86 4,45" fill="#ff5c00"/><polygon points="45,14 76,45 45,76 14,45" fill="#c44a00"/><polygon points="45,26 64,45 45,64 26,45" fill="#000"/><line x1="33" y1="33" x2="57" y2="57" stroke="#ff5c00" stroke-width="5.5" stroke-linecap="round"/><line x1="57" y1="33" x2="33" y2="57" stroke="#ff5c00" stroke-width="5.5" stroke-linecap="round"/></svg>CryptoX</span>
+      <p class="text-on-surface-variant text-sm font-body-md mt-1">© 2025 CryptoX. All Rights Reserved.</p>
+    </div>
+    <div class="flex gap-gutter">
+      <a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-sm" href="#">Privacy Policy</a>
+      <a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-sm" href="#">Terms of Service</a>
+      <a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-sm" href="#">Risk Disclosure</a>
+      <a class="text-on-surface-variant hover:text-secondary transition-colors font-body-md text-sm" href="#">Security</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Live price simulation
+  function randomPrice(base,range){return(base+(Math.random()-0.5)*range).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+  setInterval(()=>{
+    const p=document.getElementById('btc-price');
+    if(p) p.textContent='$'+randomPrice(64281,200);
+  },3000);
+  document.querySelectorAll('button').forEach(b=>{
+    b.addEventListener('mousedown',()=>b.classList.add('scale-95'));
+    b.addEventListener('mouseup',()=>b.classList.remove('scale-95'));
+    b.addEventListener('mouseleave',()=>b.classList.remove('scale-95'));
+  });
+</script>
+
+<!-- Mobile Drawer Menu -->
+<div id="mobile-drawer" class="fixed inset-0 z-[100] hidden md:hidden">
+  <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="toggleMobileMenu()"></div>
+  <div class="absolute left-0 top-0 h-full w-72 z-10" style="background:rgba(10,10,10,0.98);border-right:1px solid rgba(255,255,255,0.08);">
+    <div class="flex items-center justify-between p-6 border-b border-white/5">
+      <span style="display:inline-flex;align-items:center;font-family:'Hanken Grotesk',sans-serif;font-size:20px;font-weight:800;color:#ffb59a;letter-spacing:-0.04em;"><svg width="26" height="26" viewBox="0 0 90 90" style="display:inline-block;vertical-align:middle;margin-right:7px;flex-shrink:0;"><polygon points="45,4 86,45 45,86 4,45" fill="#ff5c00"/><polygon points="45,14 76,45 45,76 14,45" fill="#c44a00"/><polygon points="45,26 64,45 45,64 26,45" fill="#000"/><line x1="33" y1="33" x2="57" y2="57" stroke="#ff5c00" stroke-width="5.5" stroke-linecap="round"/><line x1="57" y1="33" x2="33" y2="57" stroke="#ff5c00" stroke-width="5.5" stroke-linecap="round"/></svg>CryptoX</span>
+      <button onclick="toggleMobileMenu()" class="text-on-surface-variant hover:text-primary">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <nav class="p-4 space-y-1">
+      <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-primary bg-primary-container/15 font-label-mono text-sm"><span class="material-symbols-outlined text-sm">home</span> Home</a>
+      <a href="learn.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-white/5 font-label-mono text-sm transition-colors"><span class="material-symbols-outlined text-sm">school</span> Learn</a>
+      <a href="about.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-white/5 font-label-mono text-sm transition-colors"><span class="material-symbols-outlined text-sm">info</span> About</a>
+      <a href="support.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-white/5 font-label-mono text-sm transition-colors"><span class="material-symbols-outlined text-sm">support_agent</span> Support</a>
+      <a href="login.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-white/5 font-label-mono text-sm transition-colors"><span class="material-symbols-outlined text-sm">login</span> Sign In</a>
+      <a href="signup.html" class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-white/5 font-label-mono text-sm transition-colors"><span class="material-symbols-outlined text-sm">person_add</span> Create Account</a>
+    </nav>
+    <div class="p-4 mt-4">
+      <a href="signup.html" class="block w-full bg-primary-container text-on-primary-container text-center py-3 rounded-xl font-bold" style="text-decoration:none;">Get Started →</a>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Bottom Nav (Landing Page) -->
+<div class="fixed bottom-0 left-0 right-0 md:hidden z-50" style="background:rgba(13,13,13,0.97);backdrop-filter:blur(24px);border-top:1px solid rgba(255,255,255,0.07);padding:8px 0 14px;">
+  <div style="display:flex;justify-content:space-around;align-items:center;">
+    <a href="index.html" style="display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;">
+      <span class="material-symbols-outlined" style="font-size:22px;color:#ff5c00;font-variation-settings:'FILL' 1;">home</span>
+      <span style="font-family:'Geist',monospace;font-size:9px;color:#ff5c00;">Home</span>
+    </a>
+    <a href="about.html" style="display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;">
+      <span class="material-symbols-outlined" style="font-size:22px;color:rgba(228,190,177,0.45);">info</span>
+      <span style="font-family:'Geist',monospace;font-size:9px;color:rgba(228,190,177,0.45);">About</span>
+    </a>
+    <a href="signup.html" style="display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;">
+      <div style="width:46px;height:46px;border-radius:50%;background:#ff5c00;display:flex;align-items:center;justify-content:center;margin-top:-20px;box-shadow:0 0 20px rgba(255,92,0,0.5);">
+        <span class="material-symbols-outlined" style="font-size:22px;color:#fff;">rocket_launch</span>
+      </div>
+      <span style="font-family:'Geist',monospace;font-size:9px;color:rgba(228,190,177,0.45);">Start</span>
+    </a>
+    <a href="login.html" style="display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;">
+      <span class="material-symbols-outlined" style="font-size:22px;color:rgba(228,190,177,0.45);">login</span>
+      <span style="font-family:'Geist',monospace;font-size:9px;color:rgba(228,190,177,0.45);">Sign In</span>
+    </a>
+    <a href="#" onclick="toggleMobileMenu()" style="display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;">
+      <span class="material-symbols-outlined" style="font-size:22px;color:rgba(228,190,177,0.45);">menu</span>
+      <span style="font-family:'Geist',monospace;font-size:9px;color:rgba(228,190,177,0.45);">Menu</span>
+    </a>
+  </div>
+</div>
+
+<script>
+function toggleMobileMenu(){
+  const d=document.getElementById('mobile-drawer');
+  d.classList.toggle('hidden');
+  document.body.style.overflow=d.classList.contains('hidden')?'':'hidden';
+}
+</script>
+
+
+<script>
+// ===== CoinGecko Real-time Market Data =====
+const COINS = [
+  {id:'bitcoin',symbol:'BTC',name:'Bitcoin',color:'#f7931a',icon:'₿'},
+  {id:'ethereum',symbol:'ETH',name:'Ethereum',color:'#627eea',icon:'Ξ'},
+  {id:'tether',symbol:'USDT',name:'Tether',color:'#26a17b',icon:'$'},
+  {id:'binancecoin',symbol:'BNB',name:'BNB',color:'#f3ba2f',icon:'B'},
+  {id:'solana',symbol:'SOL',name:'Solana',color:'#9945ff',icon:'◎'},
+  {id:'ripple',symbol:'XRP',name:'XRP',color:'#346aa9',icon:'X'},
+  {id:'usd-coin',symbol:'USDC',name:'USD Coin',color:'#2775ca',icon:'$'},
+  {id:'cardano',symbol:'ADA',name:'Cardano',color:'#0033ad',icon:'₳'},
+  {id:'dogecoin',symbol:'DOGE',name:'Dogecoin',color:'#c2a633',icon:'Ð'},
+  {id:'avalanche-2',symbol:'AVAX',name:'Avalanche',color:'#e84142',icon:'A'},
+  {id:'chainlink',symbol:'LINK',name:'Chainlink',color:'#2a5ada',icon:'⬡'},
+  {id:'polkadot',symbol:'DOT',name:'Polkadot',color:'#e6007a',icon:'●'},
+  {id:'tron',symbol:'TRX',name:'TRON',color:'#ff0013',icon:'T'},
+  {id:'shiba-inu',symbol:'SHIB',name:'Shiba Inu',color:'#ffa409',icon:'🐕'},
+  {id:'litecoin',symbol:'LTC',name:'Litecoin',color:'#bfbbbb',icon:'Ł'},
+  {id:'matic-network',symbol:'MATIC',name:'Polygon',color:'#8247e5',icon:'P'},
+  {id:'stellar',symbol:'XLM',name:'Stellar',color:'#7d93e0',icon:'★'},
+  {id:'monero',symbol:'XMR',name:'Monero',color:'#ff6600',icon:'ɱ'},
+  {id:'uniswap',symbol:'UNI',name:'Uniswap',color:'#ff007a',icon:'🦄'},
+  {id:'cosmos',symbol:'ATOM',name:'Cosmos',color:'#6f7390',icon:'⚛'},
+];
+
+let allCoinsData = [];
+
+function fmt(n){
+  if(!n && n!==0) return '—';
+  if(n >= 1e12) return '$'+(n/1e12).toFixed(2)+'T';
+  if(n >= 1e9)  return '$'+(n/1e9).toFixed(2)+'B';
+  if(n >= 1e6)  return '$'+(n/1e6).toFixed(2)+'M';
+  if(n >= 1)    return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+  return '$'+n.toFixed(6);
+}
+
+function fmtChange(n){
+  if(!n && n!==0) return '—';
+  const sign = n >= 0 ? '+' : '';
+  return sign + n.toFixed(2) + '%';
+}
+
+async function fetchMarketData(){
+  const ids = COINS.map(c=>c.id).join(',');
+  const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${ids}&order=market_cap_desc&per_page=20&page=1&sparkline=true&price_change_percentage=24h`;
+  
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    allCoinsData = data;
+    renderCoins(data);
+    updateFeatured(data);
+    document.getElementById('last-updated').textContent = 'Updated: ' + new Date().toLocaleTimeString();
+  } catch(e) {
+    // Fallback: show static data with note
+    document.getElementById('last-updated').textContent = 'Live data unavailable — showing cached prices';
+    renderFallback();
+  }
+}
+
+function updateFeatured(data){
+  const btc = data.find(d=>d.id==='bitcoin');
+  const eth = data.find(d=>d.id==='ethereum');
+  if(btc){
+    const el = document.getElementById('btc-price-big');
+    const ch = document.getElementById('btc-change-big');
+    if(el) el.textContent = fmt(btc.current_price);
+    if(ch){
+      const pct = btc.price_change_percentage_24h;
+      ch.textContent = fmtChange(pct);
+      ch.style.color = pct >= 0 ? '#4ade80' : '#ffb4ab';
+    }
+    // Also update live price in hero
+    const liveEl = document.getElementById('btc-price');
+    if(liveEl) liveEl.textContent = fmt(btc.current_price);
+  }
+  if(eth){
+    const el = document.getElementById('eth-price-big');
+    const ch = document.getElementById('eth-change-big');
+    if(el) el.textContent = fmt(eth.current_price);
+    if(ch){
+      const pct = eth.price_change_percentage_24h;
+      ch.textContent = fmtChange(pct);
+      ch.style.color = pct >= 0 ? '#4ade80' : '#ffb4ab';
+    }
+  }
+}
+
+function renderCoins(data){
+  const tbody = document.getElementById('coins-table-body');
+  if(!tbody) return;
+  
+  tbody.innerHTML = data.map((coin, idx) => {
+    const meta = COINS.find(c=>c.id===coin.id) || {};
+    const pct = coin.price_change_percentage_24h || 0;
+    const isUp = pct >= 0;
+    const changeColor = isUp ? '#4ade80' : '#ffb4ab';
+    const changeBg = isUp ? 'rgba(74,222,128,0.1)' : 'rgba(255,180,171,0.1)';
+    
+    // Sparkline from 7d data
+    let sparkline = '';
+    if(coin.sparkline_in_7d && coin.sparkline_in_7d.price && coin.sparkline_in_7d.price.length > 0){
+      const prices = coin.sparkline_in_7d.price;
+      const min = Math.min(...prices);
+      const max = Math.max(...prices);
+      const range = max - min || 1;
+      const w = 80, h = 28;
+      const step = w / (prices.length - 1);
+      const pts = prices.map((p,i) => `${i*step},${h - ((p-min)/range)*h}`).join(' ');
+      const lineColor = isUp ? '#4ade80' : '#ffb4ab';
+      sparkline = `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="display:block;">
+        <polyline points="${pts}" fill="none" stroke="${lineColor}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>`;
+    }
+
+    return `
+    <tr class="coin-row border-b border-outline-variant/5 hover:bg-white/3 transition-colors cursor-pointer" style="animation-delay:${Math.min(idx*0.04,0.6)}s" data-name="${coin.name.toLowerCase()} ${coin.symbol.toLowerCase()}">
+      <td class="px-5 py-3 font-label-mono text-xs text-on-surface-variant">${idx+1}</td>
+      <td class="px-5 py-3">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:36px;height:36px;border-radius:50%;background:${meta.color || '#ff5c00'}22;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:${meta.color || '#ff5c00'};flex-shrink:0;">
+            ${coin.image ? `<img src="${coin.image}" width="24" height="24" style="border-radius:50%;"/>` : (meta.icon || coin.symbol[0])}
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:600;color:#e5e2e1;">${coin.name}</div>
+            <div style="font-size:10px;color:rgba(228,190,177,0.5);font-family:'Geist',monospace;">${coin.symbol.toUpperCase()}</div>
+          </div>
+        </div>
+      </td>
+      <td class="px-5 py-3 text-right font-data-display text-sm text-on-surface">${fmt(coin.current_price)}</td>
+      <td class="px-5 py-3 text-right">
+        <span style="background:${changeBg};color:${changeColor};padding:3px 8px;border-radius:5px;font-size:11px;font-weight:700;font-family:'Geist',monospace;">
+          ${isUp ? '▲' : '▼'} ${Math.abs(pct).toFixed(2)}%
+        </span>
+      </td>
+      <td class="px-5 py-3 text-right font-label-mono text-xs text-on-surface-variant hidden md:table-cell">${fmt(coin.market_cap)}</td>
+      <td class="px-5 py-3 text-right font-label-mono text-xs text-on-surface-variant hidden md:table-cell">${fmt(coin.total_volume)}</td>
+      <td class="px-5 py-3 text-right hidden lg:table-cell">${sparkline}</td>
+    </tr>`;
+  }).join('');
+}
+
+function filterCoins(query){
+  const q = query.toLowerCase().trim();
+  document.querySelectorAll('.coin-row').forEach(row => {
+    const name = row.getAttribute('data-name') || '';
+    row.style.display = name.includes(q) ? '' : 'none';
+  });
+}
+
+function renderFallback(){
+  const fallbackData = [
+    {id:'bitcoin',name:'Bitcoin',symbol:'BTC',price:64289,change:2.45,mcap:'$1.25T',vol:'$28B'},
+    {id:'ethereum',name:'Ethereum',symbol:'ETH',price:3421,change:1.2,mcap:'$410B',vol:'$14B'},
+    {id:'tether',name:'Tether',symbol:'USDT',price:1.00,change:0.01,mcap:'$118B',vol:'$52B'},
+    {id:'binancecoin',name:'BNB',symbol:'BNB',price:412,change:-0.8,mcap:'$61B',vol:'$1.8B'},
+    {id:'solana',name:'Solana',symbol:'SOL',price:142,change:3.2,mcap:'$65B',vol:'$3.1B'},
+  ];
+  const tbody = document.getElementById('coins-table-body');
+  tbody.innerHTML = fallbackData.map((c,i) => {
+    const meta = COINS.find(m=>m.id===c.id)||{};
+    const isUp = c.change >= 0;
+    return `<tr class="coin-row border-b border-outline-variant/5" data-name="${c.name.toLowerCase()} ${c.symbol.toLowerCase()}">
+      <td class="px-5 py-3 font-label-mono text-xs text-on-surface-variant">${i+1}</td>
+      <td class="px-5 py-3"><div style="display:flex;align-items:center;gap:10px;"><div style="width:36px;height:36px;border-radius:50%;background:${meta.color||'#ff5c00'}22;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:${meta.color||'#ff5c00'};">${meta.icon||c.symbol[0]}</div><div><div style="font-size:13px;font-weight:600;color:#e5e2e1;">${c.name}</div><div style="font-size:10px;color:rgba(228,190,177,0.5);font-family:'Geist',monospace;">${c.symbol}</div></div></div></td>
+      <td class="px-5 py-3 text-right font-data-display text-sm">${fmt(c.price)}</td>
+      <td class="px-5 py-3 text-right"><span style="background:${isUp?'rgba(74,222,128,0.1)':'rgba(255,180,171,0.1)'};color:${isUp?'#4ade80':'#ffb4ab'};padding:3px 8px;border-radius:5px;font-size:11px;font-weight:700;">${isUp?'▲':'▼'} ${Math.abs(c.change).toFixed(2)}%</span></td>
+      <td class="px-5 py-3 text-right font-label-mono text-xs text-on-surface-variant hidden md:table-cell">${c.mcap}</td>
+      <td class="px-5 py-3 text-right font-label-mono text-xs text-on-surface-variant hidden md:table-cell">${c.vol}</td>
+      <td class="hidden lg:table-cell"></td>
+    </tr>`;
+  }).join('');
+}
+
+// Fetch on load
+fetchMarketData();
+// Refresh every 30 seconds
+setInterval(fetchMarketData, 30000);
+
+// --- CryptoX 2.0 motion: scroll reveal ---
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting){
+      e.target.classList.add('in-view');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, {threshold:0.15});
+document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => revealObserver.observe(el));
+
+// --- Background orb parallax (desktop only) ---
+if(window.matchMedia('(pointer:fine)').matches){
+  const orb1 = document.getElementById('orb1');
+  const orb2 = document.getElementById('orb2');
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 40;
+    const y = (e.clientY / window.innerHeight - 0.5) * 40;
+    if(orb1) orb1.style.transform = `translate(${x}px, ${y}px)`;
+    if(orb2) orb2.style.transform = `translate(${-x}px, ${-y}px)`;
+  });
+
+  // --- OS mockup panel 3D tilt ---
+  const panelWrap = document.getElementById('os-panel-wrap');
+  const panel = document.getElementById('os-panel');
+  if(panelWrap && panel){
+    panelWrap.addEventListener('mousemove', (e) => {
+      const r = panelWrap.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      panel.style.transform = `perspective(800px) rotateY(${px*8}deg) rotateX(${-py*8}deg)`;
+    });
+    panelWrap.addEventListener('mouseleave', () => {
+      panel.style.transform = 'perspective(800px) rotateY(0) rotateX(0)';
+    });
+  }
+}
+
+</script>
+
+</body>
+</html>
